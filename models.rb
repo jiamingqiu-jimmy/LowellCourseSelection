@@ -2,7 +2,7 @@ class User
   include DataMapper::Resource
     
   property :id,           Serial
-    
+
   property :username,     String,
     :required => true,
     :unique   => true
@@ -17,13 +17,12 @@ class User
 	  self.password == unhashed_password
 	end
 	
-	property :admin,       Boolean, default: false
 	
-	has n, :user_categories
-	has n, :categories, through: :user_categories
+	has n, :user_lessons
+	has n, :categories, through: :user_lessons
 end
 
-class UserCategory
+class UserLesson
   include DataMapper::Resource
   
   property :id,         Serial
@@ -32,30 +31,38 @@ class UserCategory
   belongs_to    :category
 end
 
-class Category
-  include DataMapper::Resource
-  
-  property :id,           Serial
-  property :title,         String
-  
-  has n, :class
-  
-  has n, :user_categories
-  has n, :users, through: :user_categories
-end
-
-
-class Class
+class Lesson
   include DataMapper::Resource
   
   property :id,           Serial
   property :name,         String
-  property :teacher,      String
-  property :spots,        Integer
+  property :space,        Integer
+  property :block,        Integer
+  
+  has n, :user_lessons
+  has n, :users, through: :user_lessons
   
   belongs_to :category
 end
 
 
+class Category
+  include DataMapper::Resource
+  
+  property :id,           Serial
+  property :name,         String
+  
+  has n, :lesson
+end
+
+class Teacher
+  include DataMapper::Resource
+  
+  property :id,           Serial
+  property :name,         String
+  
+  belongs_to :lesson
+end
+
 DataMapper.finalize
-Datamapper.auto_upgrade!
+DataMapper.auto_upgrade!
