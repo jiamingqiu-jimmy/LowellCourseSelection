@@ -1,0 +1,30 @@
+<article id="sessions-new-page">
+  <div class="text-center"><h2>Sign In</h2></div>
+
+  <% if user.errors.any? %>
+    <div class="form-errors">
+      <h3>Uh oh! There were some errors.</h3>
+      <ul class="error-messages">
+        <% user.errors.full_messages.each do |error_msg| %>
+          <li><%= error_msg %></li>
+        <% end %>
+      </ul
+    </div>
+  <% end %>
+  <div class="add-menu-display">
+    <form id="sign-in-form" class="horizontal-form"
+          method="POST" action="/sign-in">
+  
+      <label for="user-email">Username</label>
+  
+      <input id="user-email" type="text" name="username"
+             placeholder="PeanutButter" value="<%= user.username %>">
+  
+      <label for="user-password">Password</label>
+  
+      <input id="user-password" type="password" name="password">
+  
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</article>

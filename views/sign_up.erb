@@ -1,0 +1,43 @@
+<article id="users-new-page">
+  <div class="text-center"><h2>Create Account</h2> </div>
+
+  <% if user.errors.any? %>
+    <div class="form-errors">
+      <h3>Uh oh! There were some errors.</h3>
+      <ul class="error-messages">
+        <% user.errors.full_messages.each do |error_msg| %>
+          <li><%= error_msg %></li>
+        <% end %>
+      </ul
+    </div>
+  <% end %>
+  <div class="add-menu-display">
+    <form id="create-account-form" class="horizontal-form"
+          method="POST" action="/sign-up">
+  
+      <div>
+        
+      <label for="user-email">Useranem</label>
+  
+      <input id="user-email" type="text" name="user[username]"
+             placeholder="PeanutButter" value="<%= user.username %>">
+        
+      </div>
+      
+      <div>
+      <label for="user-password">Password</label>
+  
+      <input id="user-password" type="password" name="user[password]">
+      </div>
+      
+      <div>
+      <label for="user-password-confirm">Confirm Password</label>
+  
+      <input id="user-password-confirm" type="password"
+             name="user[password_confirmation]">
+      </div>
+  
+      <button type="submit">Create Account</button>
+    </form>
+  </div>
+</article>

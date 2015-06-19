@@ -34,11 +34,27 @@ end
 
 #===========Public Access===========#
 get("/") do
-  erb(:main_page, :locals => {})
+  users = User.all
+  erb(:main_page, :locals => {:users => users})
 end
 
 get("/class-list") do
   erb(:class_view, :locals => {})
+end
+
+get("/sign-up") do
+  user = User.new
+  erb(:sign_up, :locals => {:user => user})
+end
+
+get("/sign-in") do
+  user = User.new
+  erb(:sign_in, :locals => {:user => user})
+end
+
+get("/sessions/sign_out") do
+  sign_out!
+  redirect("/")
 end
 #===================================#
 
@@ -100,6 +116,31 @@ post("/admin/class-add")do
 			p error
 		end
     erb(:error)
+  end
+end
+
+#Having a similar name for a POST and a GET might cause errors
+
+post("/sign-up") do 
+  user = User.create(params[:user])
+
+  if user.saved?
+    sign_in!(user)
+
+    redirect("/")
+  else
+    erb(:sign_up, :locals => { :user => user })
+  end
+end
+
+post("/sign-in") do
+  user = User.find_by_email(params[:email])
+
+  if user && user.valid_password?(params[:password])
+    sign_in!(user)
+    redirect("/")
+  else
+    erb(:sessions_new, :locals => { :user => user })
   end
 end
 #===================================#

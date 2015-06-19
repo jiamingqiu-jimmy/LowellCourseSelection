@@ -1,3 +1,27 @@
 <article id="main-page">
-    
+  <h3>Users</h3>
+  <% if user_signed_in? %>
+    <p>
+      It looks like you're signed in. Congrats! You can
+      <a href="/sessions/sign_out">sign out</a> at any time.
+    </p>
+  <% else %>
+     <p>
+      It doesn't look like you're signed in. You should
+      <a href="/sign-up">create an account</a> or
+      <a href="/sign-in">sign into your existing account</a>.
+    </p>
+  <% end %>
+  <% if users.empty? %>
+    <p>
+      Nobody's signed up yet! Why don't you
+      <a href="/sign-up">create an account</a>?
+    </p>
+  <% else %>
+    <ul class="text-list">
+      <% users.each do |user| %>
+      <li><%= user.username %></li>
+     <% end %>
+    </ul>
+  <% end %>
 </article>
