@@ -39,6 +39,7 @@ class Lesson
   property :space,        Integer
   property :block,        Integer
   
+  has n, :teacher
   has n, :user_lessons
   has n, :users, through: :user_lessons
   
