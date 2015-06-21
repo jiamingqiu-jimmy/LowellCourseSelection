@@ -15,11 +15,10 @@
     <form id="sign-in-form" class="horizontal-form"
           method="POST" action="/sign-in">
   
-      <label for="user-email">Username</label>
-  
-      <input id="user-email" type="text" name="username"
-             placeholder="PeanutButter" value="<%= user.username %>">
-  
+      <label for="user-email">Email</label>
+      
+      <input id="user-email" type="text" name="email" value="<%= user.email%>"
+      
       <label for="user-password">Password</label>
   
       <input id="user-password" type="password" name="password">

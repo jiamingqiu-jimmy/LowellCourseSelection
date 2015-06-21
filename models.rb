@@ -7,6 +7,14 @@ class User
     :required => true,
     :unique   => true
     
+	property :email,        String,
+  	:format   => :email_address,
+  	:required => true,
+  	:unique   => true,
+  	:messages => {
+  		:format => "You must enter a valid email address."
+	}
+  
   property :password,     BCryptHash, :required => true
   validates_confirmation_of :password
   
@@ -15,6 +23,10 @@ class User
 	
 	def valid_password?(unhashed_password)
 	  self.password == unhashed_password
+	end
+	
+	def self.find_by_email(email)
+		self.first(:email => email)
 	end
 	
 	

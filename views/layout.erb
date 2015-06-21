@@ -54,16 +54,15 @@
           <!--</form>-->
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Link</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-              </ul>
-            </li>
+              <% if user_signed_in? %>
+                <li><a href="/sign_out"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                <p class="navbar-text"><span class="glyphicon glyphicon-log-out"></span> Signed in as <%= current_user.email %></p>
+              <% else %>
+                <li><a href="/sign-in"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
+                <li><a href="/sign-up"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <!--<li><a href="/sessions/new">Sign In</a></li>-->
+                <!--<li><a href="/users/new">Create Account</a></li>-->
+              <% end %>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

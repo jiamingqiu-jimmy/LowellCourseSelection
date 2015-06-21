@@ -17,12 +17,23 @@
   
       <div>
         
-      <label for="user-email">Useranem</label>
+      <label for="user-username">Useranem</label>
   
-      <input id="user-email" type="text" name="user[username]"
+      <input id="user-username" type="text" name="user[username]"
              placeholder="PeanutButter" value="<%= user.username %>">
         
       </div>
+      
+      <div>
+        
+      <label for="user-email">Useranem</label>
+  
+      <input id="user-email" type="text" name="user[email]"
+             placeholder="PeanutButter@gmail.com" value="<%= user.email %>">
+        
+      </div>
+      
+      <input type="number" name="registry" placeholder="1706">
       
       <div>
       <label for="user-password">Password</label>

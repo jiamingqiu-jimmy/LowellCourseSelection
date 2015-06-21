@@ -52,7 +52,7 @@ get("/sign-in") do
   erb(:sign_in, :locals => {:user => user})
 end
 
-get("/sessions/sign_out") do
+get("/sign_out") do
   sign_out!
   redirect("/")
 end
@@ -122,9 +122,12 @@ end
 #Having a similar name for a POST and a GET might cause errors
 
 post("/sign-up") do 
-  user = User.create(params[:user])
-
-  if user.saved?
+  registry = params["registry"]
+  user = User.new(params[:user])
+  
+  user.username.concat("_")
+  user.username.concat(registry)
+  if user.save
     sign_in!(user)
 
     redirect("/")
