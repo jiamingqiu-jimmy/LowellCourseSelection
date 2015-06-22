@@ -51,11 +51,11 @@ class Lesson
   property :space,        Integer
   property :block,        Integer
   
-  has n, :teacher
   has n, :user_lessons
   has n, :users, through: :user_lessons
   
   belongs_to :category
+  belongs_to :teacher
 end
 
 
@@ -74,7 +74,7 @@ class Teacher
   property :id,           Serial
   property :name,         String
   
-  belongs_to :lesson
+  has n, :lesson
 end
 
 DataMapper.finalize

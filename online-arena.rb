@@ -71,6 +71,10 @@ end
 get("/admin/modify-class") do
   erb(:a_class_modify, :locals => {})
 end
+
+get("/admin/assign-teacher") do
+  erb(:a_assign_teacher, :locals => {})
+end
 #===================================#
 
 #==========Changes==================#
