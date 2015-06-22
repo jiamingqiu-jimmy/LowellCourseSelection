@@ -65,15 +65,18 @@ get("/admin") do
 end
 
 get("/admin/modify-category") do
-  erb(:a_category_modify, :locals => {})
+  categories = Category.all
+  erb(:a_category_modify, :locals => {:categories => categories})
 end
 
 get("/admin/modify-class") do
-  erb(:a_class_modify, :locals => {})
+  classes = Lesson.all
+  erb(:a_class_modify, :locals => {:classes => classes})
 end
 
 get("/admin/modify-teacher") do
-  erb(:a_teacher_modify, :locals => {})
+  teachers = Teacher.all
+  erb(:a_teacher_modify, :locals => {:teachers => teachers})
 end
 #===================================#
 
@@ -92,6 +95,17 @@ post("/admin/category-add")do
   end
 end
 
+post("/admin/category-delete/:category_id")do
+  category = Category.get(params["category_id"])
+  category.destroy
+  
+  if category.destroyed?
+    redirect("/admin/modify-category")
+  else
+    erb(:error)
+  end
+end
+
 post("/admin/teacher-add")do
   teacher_name = params["name"]
   
@@ -105,6 +119,22 @@ post("/admin/teacher-add")do
     erb(:error)
   end
 end
+
+post("/admin/teacher-delete/:teacher_id")do
+  teacher = Teacher.get(params["teacher_id"])
+  teacher.destroy
+  
+  if teacher.destroyed?
+    redirect("/admin/modify-teacher")
+  else
+    teacher.errors.each do |error|
+      p #############
+      p error
+    end
+    erb(:error)
+  end
+end
+
 
 post("/admin/class-add")do
   lesson_name = params["name"]
@@ -136,6 +166,17 @@ post("/admin/class-add")do
 		lesson.errors.each do |error|
 			p error
 		end
+    erb(:error)
+  end
+end
+
+post("/admin/class-delete/:lesson_id")do
+  lesson = Lesson.get(params["lesson_id"])
+  lesson.destroy
+  
+  if lesson.destroyed?
+    redirect("/admin/modify-class")
+  else
     erb(:error)
   end
 end

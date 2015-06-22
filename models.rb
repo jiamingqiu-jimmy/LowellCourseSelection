@@ -65,7 +65,7 @@ class Category
   property :id,           Serial
   property :name,         String
   
-  has n, :lesson
+  has n, :lesson, constraint: :destroy
 end
 
 class Teacher
@@ -74,7 +74,7 @@ class Teacher
   property :id,           Serial
   property :name,         String
   
-  has n, :lesson
+  has n, :lesson, constraint: :destroy
 end
 
 DataMapper.finalize

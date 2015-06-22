@@ -1,6 +1,12 @@
-<article id="a-class-modify">
+<article id="a-category-modify">
   <form class="text-form" method="POST" action="/admin/category-add">
       <input type="text" name="name" placeholder="Name of Category"></input>
       <button type="submit">Add Category</button>
   </form>
+  <% categories.each do |category| %>
+    <li><%=category.name%></li>
+    <form method="POST" action="/admin/category-delete/<%= category.id %>">
+      <button type ="submit">Delete Category</button>
+    </form>
+  <% end %>
 </article>

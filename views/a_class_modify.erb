@@ -18,4 +18,11 @@
     
     <button type="submit">Add Class</button>
   </form>
+  
+  <% classes.each do |lesson| %>
+    <li><%=lesson.name%></li>
+    <form method="POST" action="/admin/class-delete/<%= lesson.id %>">
+      <button type ="submit">Delete Class</button>
+    </form>
+  <% end %>
 </article>

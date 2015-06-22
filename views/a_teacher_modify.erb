@@ -3,4 +3,10 @@
       <input type="text" name="name" placeholder="Name of Teacher"></input>
       <button type="submit">Add Teacher</button>
   </form>
+  <% teachers.each do |teacher| %>
+    <li><%=teacher.name%></li>
+    <form method="POST" action="/admin/teacher-delete/<%= teacher.id %>">
+      <button type ="submit">Delete Teacher</button>
+    </form>
+  <% end %>
 </article>
