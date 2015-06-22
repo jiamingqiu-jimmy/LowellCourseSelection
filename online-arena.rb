@@ -72,8 +72,8 @@ get("/admin/modify-class") do
   erb(:a_class_modify, :locals => {})
 end
 
-get("/admin/assign-teacher") do
-  erb(:a_assign_teacher, :locals => {})
+get("/admin/modify-teacher") do
+  erb(:a_teacher_modify, :locals => {})
 end
 #===================================#
 
@@ -92,12 +92,28 @@ post("/admin/category-add")do
   end
 end
 
+post("/admin/teacher-add")do
+  teacher_name = params["name"]
+  
+  teacher = Teacher.new(
+    name:     teacher_name
+  )
+  
+  if teacher.save
+    redirect("/admin/modify-teacher")
+  else
+    erb(:error)
+  end
+end
+
 post("/admin/class-add")do
   lesson_name = params["name"]
   lesson_space = params["space"]
   lesson_block = params["block"]
   @category_id = params[:category_id]
   lesson_category = params[:category_id]
+  lesson_teacher = params[:teacher_id]
+  
   lesson = Lesson.new(
     name:         lesson_name,
     space:        lesson_space,
@@ -111,6 +127,7 @@ post("/admin/class-add")do
   p @category_id
   
   Category.get(lesson_category).lesson << lesson
+  Teacher.get(lesson_teacher).lesson << lesson
   
   if lesson.save
     redirect("/admin/modify-class")

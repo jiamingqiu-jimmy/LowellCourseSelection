@@ -3,11 +3,19 @@
     <input type="text" name="name" placeholder="Name"></input>
     <input type="number" name="block" placeholder="Block"></input>
     <input type="number" name="space" placeholder="Space"></input>
+    
     <select name="category_id">
       <% Category.each do |category| %>
         <option value= <%= category.id %> > <%= category.name %></option>
       <% end %>
     </select>
+    
+    <select name="teacher_id">
+      <% Teacher.each do |teacher| %>
+        <option value= <%= teacher.id %> > <%= teacher.name %> </option>
+      <% end %>
+    </select>
+    
     <button type="submit">Add Class</button>
   </form>
 </article>
