@@ -38,8 +38,14 @@ get("/") do
   erb(:main_page, :locals => {:users => users})
 end
 
-get("/class-list") do
-  erb(:class_view, :locals => {})
+get("/class-view") do
+  classes = Lesson.all
+  erb(:class_view, :locals => {:classes => classes})
+end
+
+get("/class-select")do
+  classes = Lesson.all
+  erb(:class_select, :locals => {:classes => classes})
 end
 
 get("/sign-up") do
@@ -64,6 +70,11 @@ get("/admin") do
   erb(:admin, :locals => {})
 end
 
+get("/admin/modify-registry") do
+  registry = Registry.all
+  erb(:a_registry_modify, :locals =>{:registry => registry})
+end
+
 get("/admin/modify-category") do
   categories = Category.all
   erb(:a_category_modify, :locals => {:categories => categories})
@@ -77,6 +88,10 @@ end
 get("/admin/modify-teacher") do
   teachers = Teacher.all
   erb(:a_teacher_modify, :locals => {:teachers => teachers})
+end
+
+get("/admin/set-user-time") do
+  erb(:a_user_time, :locals => {})
 end
 #===================================#
 
@@ -181,11 +196,37 @@ post("/admin/class-delete/:lesson_id")do
   end
 end
 
+post("/admin/registry-add")do
+  registry_name = params["name"]
+  
+  registry = Registry.new(
+    name:      registry_name
+  )
+  
+  if registry.save
+    redirect("/admin/modify-registry")
+  else
+		erb(:error)
+  end
+end
+
+post("/admin/registry-delete/:registry_id")do
+  registry = Registry.get(params["registry_id"])
+  registry.destroy
+  
+  if registry.destroyed?
+    redirect("/admin/modify-registry")
+  else
+    erb(:error)
+  end
+end
+
 #Having a similar name for a POST and a GET might cause errors
 
 post("/sign-up") do 
   registry = params["registry"]
   user = User.new(params[:user])
+  user.registry = registry
   
   user.username.concat("_")
   user.username.concat(registry)

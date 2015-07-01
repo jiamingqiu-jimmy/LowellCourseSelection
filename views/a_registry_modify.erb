@@ -1,0 +1,12 @@
+<article id="a-registry-modify">
+  <form class="text-form" method="POST" action="/admin/registry-add">
+      <input type="number" name="name" placeholder="Registry Number"></input>
+      <button type="submit">Add Registry</button>
+  </form>
+  <% registry.each do |registry| %>
+    <li><%=registry.name%></li>
+    <form method="POST" action="/admin/registry-delete/<%= registry.id %>">
+      <button type="submit">Delete Registry</button>
+    </form>
+  <% end %>
+</article>

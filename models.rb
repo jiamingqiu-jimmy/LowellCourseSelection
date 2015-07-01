@@ -21,6 +21,10 @@ class User
 	attr_accessor :password_confirmation
 	validates_length_of :password_confirmation, :min => 6
 	
+	property :time,         DateTime
+	
+	property :registry,     Integer
+	
 	def valid_password?(unhashed_password)
 	  self.password == unhashed_password
 	end
@@ -32,6 +36,8 @@ class User
 	
 	has n, :user_lessons
 	has n, :categories, through: :user_lessons
+
+  belongs_to :registry
 end
 
 class UserLesson
@@ -75,6 +81,15 @@ class Teacher
   property :name,         String
   
   has n, :lesson, constraint: :destroy
+end
+
+class Registry
+  include DataMapper::Resource
+  
+  property :id,           Serial
+  property :name,         Integer
+
+  has n, :user
 end
 
 DataMapper.finalize
