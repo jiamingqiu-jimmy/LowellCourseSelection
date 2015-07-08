@@ -49,6 +49,9 @@ get("/class-select")do
 end
 
 get("/sign-up") do
+  User.each do |user|
+    user.status = :new
+  end
   user = User.new
   erb(:sign_up, :locals => {:user => user})
 end
@@ -91,6 +94,17 @@ get("/admin/modify-teacher") do
 end
 
 get("/admin/set-user-time") do
+  User.each do |user|
+    user.status = :change
+    puts "It worked"
+    if user.save
+      puts "saved"
+    else
+      user.errors.each do |error|
+        puts error
+      end
+    end
+  end
   erb(:a_user_time, :locals => {})
 end
 #===================================#
@@ -221,15 +235,61 @@ post("/admin/registry-delete/:registry_id")do
   end
 end
 
-#Having a similar name for a POST and a GET might cause errors
+post("/admin/set-time") do
+  p puts params["registry_id"]
+  puts params["date"]
+  puts params["hour"]
+  puts params["minute"]
+  
+  registry = params["registry_id"]
+  puts registry
+  time = params["hour"]
+  time.concat(":")
+  time.concat(params["minute"])
+  puts time
+
+  date = params["date"]
+  puts date
+  
+  datetime = date
+  datetime.concat(" ")
+  datetime.concat(time)
+  puts datetime
+  
+  access_time = Time.parse(datetime)
+  puts access_time
+  
+  registry.each do |registry_id|
+    puts registry_id
+    Registry.get(registry_id).user.each do |user|
+      user.time = access_time
+      puts user.time
+      if user.save
+        redirect("/admin/set-user-time")
+      else
+        puts "something went horribly wrong"
+		    user.errors.each do |error|
+		    	p error
+	     	  erb(:error)
+        end
+      end
+    end
+  end
+end
 
 post("/sign-up") do 
-  registry = params["registry"]
+  p puts params["registry_id"]
+  registry_id = params["registry_id"].to_i
+  p puts registry_id
+  registry_name = Registry.get(params["registry_id"]).name.to_s
+  p puts registry_name
   user = User.new(params[:user])
-  user.registry = registry
   
   user.username.concat("_")
-  user.username.concat(registry)
+  user.username.concat(registry_name)
+  
+  Registry.get(registry_id).user << user
+  
   if user.save
     sign_in!(user)
 

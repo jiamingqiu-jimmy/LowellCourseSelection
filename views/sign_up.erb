@@ -33,9 +33,11 @@
         
       </div>
       
-      <label for="registry">Registry</label>
       
-      <input type="number" name="registry" placeholder="1706">
+      <% Registry.each do |registry| %>
+        <input type="radio" name="registry_id" value="<%=registry.id%>"> <%=registry.name%>
+        <br>
+      <% end %>
       
       <div>
       <label for="user-password">Password</label>

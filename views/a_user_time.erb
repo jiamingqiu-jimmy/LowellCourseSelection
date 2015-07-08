@@ -1,5 +1,9 @@
 <article id="a-user-time">
-  <form>
+  <form method="POST" action="/admin/set-time">
+    <% Registry.each do |registry| %>
+      <input type="checkbox" name="registry_id[]" value="<%=registry.id%>"> <%= registry.name %>
+      <br>
+    <% end %>  
     <input type="date" name="date">
     <input type="number" name="hour" min="0" max="24">
     <input type="number" name="minute" min="0" max="59">
