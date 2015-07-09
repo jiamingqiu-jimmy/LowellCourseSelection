@@ -32,6 +32,9 @@ helpers do
   end
 end
 
+set(:sessions, true)
+set(:session_secret, ENV["SESSION_SECRET"])
+
 #===========Public Access===========#
 get("/") do
   users = User.all
@@ -304,9 +307,10 @@ post("/sign-in") do
 
   if user && user.valid_password?(params[:password])
     sign_in!(user)
+    puts "Worked?"
     redirect("/")
   else
-    erb(:sessions_new, :locals => { :user => user })
+    erb(:sign_in, :locals => { :user => user })
   end
 end
 #===================================# =>
