@@ -29,6 +29,7 @@ $ ruby online-arena.rb
 If everything runs successfully, you should be able to visit <http://localhost:4567> and see the web application.
 
 ------------------Instructions for admins----------------------
+
 1) You must add a "category" for example "Math" or "Social Studies"
 
 2) You must add a "subject" or the name of the class you are trying to add, for example "Geometry" or "AP Human Geography". Make sure there are no duplicates first.
@@ -43,10 +44,6 @@ If everything runs successfully, you should be able to visit <http://localhost:4
 irb -r./environment
 
 Seed.rb is for all the necessary things for our program to run as Jesse said.
-
-lunch = Lunch.new(date: "2015-4-25")
-lunch.add_menu_item_ids(["1", "2"])
-
 
 user = User.find_by_email("kirby@kirby.com")
 user.admin = true
