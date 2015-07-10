@@ -54,7 +54,7 @@
     <% category.lesson.each do |lesson| %>
       <form class="tr" method="POST" action="blah.html">
         <span class="td"><%= lesson.id %></span>
-        <span class="td"><%= lesson.name %></span>
+        <span class="td"><%= lesson.subject.name %></span>
         <span class="td"><%= lesson.block %></span>
         <span class="td"><%= lesson.space %></span>
         <span class="td"><%= lesson.teacher.name %></span>

@@ -1,6 +1,12 @@
 <article id="a-class-modify">
   <form class="text-form" method="POST" action="/admin/class-add">
-    <input type="text" name="name" placeholder="Name"></input>
+
+    <select name="subject_id">
+      <% Subject.each do |subject| %>
+        <option value= <%= subject.id %> > <%= subject.name %></option>
+      <% end %>
+    </select>
+    
     <input type="number" name="block" placeholder="Block"></input>
     <input type="number" name="space" placeholder="Space"></input>
     
@@ -20,7 +26,7 @@
   </form>
   
   <% classes.each do |lesson| %>
-    <li><%=lesson.name%></li>
+    <li><%=lesson.subject.name%></li>
     <form method="POST" action="/admin/class-delete/<%= lesson.id %>">
       <button type ="submit">Delete Class</button>
     </form>

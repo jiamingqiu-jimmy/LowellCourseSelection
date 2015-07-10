@@ -105,6 +105,10 @@ get("/admin/modify-category") do
   erb(:a_category_modify, :locals => {:categories => categories})
 end
 
+get("/admin/modify-subject") do
+  erb(:a_subject_modify, :locals => {})
+end
+
 get("/admin/modify-class") do
   classes = Lesson.all
   erb(:a_class_modify, :locals => {:classes => classes})
@@ -157,6 +161,20 @@ post("/admin/category-delete/:category_id")do
   end
 end
 
+post("/admin/subject-add")do
+  subject_name = params["name"]
+  
+  subject = Subject.new(
+    name:      subject_name
+  )
+  
+  if subject.save
+    redirect("/admin/modify-subject")
+  else
+		erb(:error)
+  end
+end
+
 post("/admin/teacher-add")do
   teacher_name = params["name"]
   
@@ -194,9 +212,9 @@ post("/admin/class-add")do
   @category_id = params[:category_id]
   lesson_category = params[:category_id]
   lesson_teacher = params[:teacher_id]
+  lesson_subject = params[:subject_id]
   
   lesson = Lesson.new(
-    name:         lesson_name,
     space:        lesson_space,
     block:        lesson_block
   )
@@ -209,6 +227,7 @@ post("/admin/class-add")do
   
   Category.get(lesson_category).lesson << lesson
   Teacher.get(lesson_teacher).lesson << lesson
+  Subject.get(lesson_subject).lesson << lesson
   
   if lesson.save
     redirect("/admin/modify-class")

@@ -61,17 +61,25 @@ class Lesson
   include DataMapper::Resource
   
   property :id,           Serial
-  property :name,         String
   property :space,        Integer
   property :block,        Integer
   
   has n, :user_lessons
   has n, :users, through: :user_lessons
   
+  belongs_to :subject
   belongs_to :category
   belongs_to :teacher
 end
 
+class Subject
+  include DataMapper::Resource
+  
+  property :id,           Serial
+  property :name,         String
+  
+  has n, :lesson, constraint: :destroy
+end
 
 class Category
   include DataMapper::Resource
