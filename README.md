@@ -30,7 +30,9 @@ If everything runs successfully, you should be able to visit <http://localhost:4
 
 ------------------Instructions for admins----------------------
 1) You must add a "category" for example "Math" or "Social Studies"
+
 2) You must add a "subject" or the name of the class you are trying to add, for example "Geometry" or "AP Human Geography". Make sure there are no duplicates first.
+
 3) You must add a "teacher" or the teacher of the class, for example, "Mr. Sinn" or "Mr. Martin"
 
 4) Then you can go and add your class.
