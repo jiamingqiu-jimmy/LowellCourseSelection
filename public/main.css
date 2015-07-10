@@ -1,0 +1,32 @@
+DIV.table 
+{
+  display:table;
+  width: 100%;
+}
+FORM.tr, DIV.tr
+{
+  display:table-row;
+}
+SPAN.td
+{
+  display:table-cell;
+}
+SPAN.th
+{
+  display:table-column-group;
+}
+DIV.caption
+{
+  display:table-caption;
+}
+.thead
+{
+	display:table-header-group;
+	color:white;
+	font-weight:bold;
+	background-color:grey;
+}
+.tbody
+{
+	display:table-row-group;
+}

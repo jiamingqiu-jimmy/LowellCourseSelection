@@ -47,22 +47,27 @@ get("/class-view") do
 end
 
 get("/class-select")do
-  utc_time = Time.parse(DateTime.now.to_s).utc
-  pacific_time = utc_time + Time.zone_offset("PDT")
-  puts utc_time
-  puts pacific_time
+  #--------------------Disabled until ready to launch(unless testing)---------------------#
+#   utc_time = Time.parse(DateTime.now.to_s).utc
+#   pacific_time = utc_time + Time.zone_offset("PDT")
+#   puts utc_time
+#   puts pacific_time
   
-  user = current_user
-  puts user.time
+#   user = current_user
+#   puts user.time
   
-  user_time = Time.parse(user.time.to_s)
+#   user_time = Time.parse(user.time.to_s)
   
-  if pacific_time < user_time
-    classes = Lesson.all
-    erb(:class_select, :locals => {:classes => classes})
-  else
-    redirect("/class-view")
-  end
+#   if pacific_time < user_time
+#     classes = Lesson.all
+#     erb(:class_select, :locals => {:classes => classes})
+#   else
+#     redirect("/class-view")
+#   end
+# end
+
+  classes = Lesson.all
+  erb(:class_select, :locals => {:classes => classes})
 end
 
 get("/sign-up") do
