@@ -38,7 +38,7 @@ If everything runs successfully, you should be able to visit <http://localhost:4
 
 4) Then you can go and add your class.
 
-
+1.2) Make sure you add a registry before you sign up or else there will be an error
 
 -------------------Notes----------------------
 irb -r./environment

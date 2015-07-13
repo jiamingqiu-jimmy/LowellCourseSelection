@@ -46,7 +46,11 @@ get("/class-view") do
   erb(:class_view, :locals => {:classes => classes})
 end
 
-get("/class-select")do
+get("/class-select") do
+  erb(:class_select, :locals => {})
+end
+
+get("/teacher-select")do
   #--------------------Disabled until ready to launch(unless testing)---------------------#
 #   utc_time = Time.parse(DateTime.now.to_s).utc
 #   pacific_time = utc_time + Time.zone_offset("PDT")
@@ -349,6 +353,24 @@ post("/sign-in") do
     redirect("/")
   else
     erb(:sign_in, :locals => { :user => user })
+  end
+end
+
+post("/teacher-select/:lesson_id") do
+  p puts params["lesson_id"]
+  lesson_id = params["lesson_id"]
+  user = current_user
+  p puts user.id
+  user = User.get(user.id)
+  user.lessons << Lesson.get(lesson_id)
+  if user.save
+    p puts user
+    redirect("/teacher-select")
+  else
+    user.errors.each do |error|
+    	p error
+   	  erb(:error)
+    end
   end
 end
 #===================================# =>

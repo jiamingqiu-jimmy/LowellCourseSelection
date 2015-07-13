@@ -43,8 +43,11 @@
     	
     	
     	has n, :user_lessons
-    	has n, :categories, through: :user_lessons
-    
+    	has n, :lessons, through: :user_lessons
+      
+      has n, :user_subjects
+      has n, :subjects, through: :user_subjects
+      
       belongs_to :registry
     end
 
@@ -54,7 +57,16 @@ class UserLesson
   property :id,         Serial
   
   belongs_to    :user
-  belongs_to    :category
+  belongs_to    :lesson
+end
+
+class UserSubject
+  include DataMapper::Resource
+  
+  property :id,         Serial
+  
+  belongs_to   :user
+  belongs_to   :subject
 end
 
 class Lesson
@@ -76,16 +88,20 @@ class Subject
   include DataMapper::Resource
   
   property :id,           Serial
-  property :name,         String
+  property :name,         String, :unique => true
   
   has n, :lesson, constraint: :destroy
+  
+  has n, :user_subjects
+  has n, :users, through: :user_subjects
+  
 end
 
 class Category
   include DataMapper::Resource
   
   property :id,           Serial
-  property :name,         String
+  property :name,         String, :unique => true
   
   has n, :lesson, constraint: :destroy
 end
@@ -94,7 +110,7 @@ class Teacher
   include DataMapper::Resource
   
   property :id,           Serial
-  property :name,         String
+  property :name,         String, :unique => true
   
   has n, :lesson, constraint: :destroy
 end

@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    <!--
+    function updateTime() {
+        // var monthNames = ["January", "February", "March", "April", "May", "June",
+        //   "July", "August", "September", "October", "November", "December"];
+        var currentTime = new Date();
+        // var year = currentTime.getFullYear();
+        // var month = currentTime.getMonth();
+        // var date = currentTime.getDate();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+        if (minutes < 10){
+            minutes = "0" + minutes;
+        }
+        if (seconds < 10){
+            seconds = "0" + seconds;
+        }
+        var v = hours + ":" + minutes + ":" + seconds + " ";
+        if(hours > 11){
+            v+="PM";
+        } else {
+            v+="AM"
+        }
+        // v+=" ";
+        // v+=monthNames[d.getMonth()];
+        // v+=" ";
+        // v+=date;
+        // v+=", "
+        // v+=year;
+        setTimeout("updateTime()",1000);
+        document.getElementById('time').innerHTML=v;
+    }
+    updateTime();
+    //-->
+</script>
+
+<h4>Current Time: <span id="time" /></h4>
+
+
+<% Category.each do |category| %>
+  <div class="table">
+    <div class="caption"><%=category.name%></div>
+    <div class="thead">
+      <div class="tr">
+        <span class="td">#</span>
+        <span class="td">Name</span>
+        <span class="td">Block</span>
+        <span class="td">Space</span>
+        <span class="td">Teacher</span>
+      </div>
+    </div>
+    <div class="tbody">
+    <% category.lesson.each do |lesson| %>
+      <form class="tr" method="POST" action="/teacher-select/<%= lesson.id %>">
+        <span class="td"><%= lesson.id %></span>
+        <span class="td"><%= lesson.subject.name %></span>
+        <span class="td"><%= lesson.block %></span>
+        <span class="td"><%= lesson.space %></span>
+        <span class="td"><%= lesson.teacher.name %></span>
+        <button type="submit">Select</button>
+      </form>
+    <% end %>
+    </div>
+  </div>
+<% end %>
