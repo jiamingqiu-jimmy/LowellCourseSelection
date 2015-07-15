@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="tbody">
-    <% category.lesson.each do |lesson| %>
+    <% category.subjects.lessons.each do |lesson| %>
         <span class="td"><%= lesson.id %></span>
         <span class="td"><%= lesson.subject.name %></span>
         <span class="td"><%= lesson.block %></span>

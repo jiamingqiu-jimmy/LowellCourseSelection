@@ -69,15 +69,12 @@ get("/teacher-select")do
 #     redirect("/class-view")
 #   end
 # end
-
+  user = current_user
   classes = Lesson.all
-  erb(:class_select, :locals => {:classes => classes})
+  erb(:teacher_select, :locals => {:classes => classes, :user => user})
 end
 
 get("/sign-up") do
-  User.each do |user|
-    user.status = :new
-  end
   user = User.new
   erb(:sign_up, :locals => {:user => user})
 end
@@ -167,10 +164,13 @@ end
 
 post("/admin/subject-add")do
   subject_name = params["name"]
+  subject_category = params[:category_id]
   
   subject = Subject.new(
     name:      subject_name
   )
+  
+  Category.get(subject_category).subjects << subject
   
   if subject.save
     redirect("/admin/modify-subject")
@@ -213,8 +213,6 @@ post("/admin/class-add")do
   lesson_name = params["name"]
   lesson_space = params["space"]
   lesson_block = params["block"]
-  @category_id = params[:category_id]
-  lesson_category = params[:category_id]
   lesson_teacher = params[:teacher_id]
   lesson_subject = params[:subject_id]
   
@@ -223,15 +221,8 @@ post("/admin/class-add")do
     block:        lesson_block
   )
   
-  puts lesson_category
-  p lesson_category
-  p params[:category_id]
-  p params["category_id"]
-  p @category_id
-  
-  Category.get(lesson_category).lesson << lesson
-  Teacher.get(lesson_teacher).lesson << lesson
-  Subject.get(lesson_subject).lesson << lesson
+  Teacher.get(lesson_teacher).lessons << lesson
+  Subject.get(lesson_subject).lessons << lesson
   
   if lesson.save
     redirect("/admin/modify-class")
@@ -333,11 +324,12 @@ post("/sign-up") do
   user.username.concat("_")
   user.username.concat(registry_name)
   
-  Registry.get(registry_id).user << user
+  Registry.get(registry_id).users << user
   
   if user.save
     sign_in!(user)
-
+    user.status = :change
+    user.save
     redirect("/")
   else
     erb(:sign_up, :locals => { :user => user })
@@ -346,10 +338,12 @@ end
 
 post("/sign-in") do
   user = User.find_by_email(params[:email])
-
+  
   if user && user.valid_password?(params[:password])
     sign_in!(user)
     puts "Worked?"
+    user.status = :change
+    user.save
     redirect("/")
   else
     erb(:sign_in, :locals => { :user => user })
@@ -359,9 +353,8 @@ end
 post("/teacher-select/:lesson_id") do
   p puts params["lesson_id"]
   lesson_id = params["lesson_id"]
-  user = current_user
-  p puts user.id
-  user = User.get(user.id)
+  a = current_user
+  user = User.get(a.id)
   user.lessons << Lesson.get(lesson_id)
   if user.save
     p puts user
@@ -371,6 +364,22 @@ post("/teacher-select/:lesson_id") do
     	p error
    	  erb(:error)
     end
+  end
+end
+
+post("/class-select/:subject_id") do
+  subject_id = params["subject_id"]
+  u = current_user
+  user = User.get(u.id)
+  user.subjects << Subject.get(subject_id)
+  
+  if user.save
+    redirect("/class-select")
+  else
+    user.errors.each do |error|
+      p error
+    end
+    erb(:error)
   end
 end
 #===================================# =>

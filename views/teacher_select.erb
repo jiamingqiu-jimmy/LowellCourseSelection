@@ -37,10 +37,9 @@
 
 <h4>Current Time: <span id="time" /></h4>
 
-
-<% Category.each do |category| %>
+<% user.subjects.each do |subject| %>
   <div class="table">
-    <div class="caption"><%=category.name%></div>
+    <div class="caption"><%=Category.get(subject.category_id)%></div>
     <div class="thead">
       <div class="tr">
         <span class="td">#</span>
@@ -51,7 +50,7 @@
       </div>
     </div>
     <div class="tbody">
-    <% category.lesson.each do |lesson| %>
+    <% subject.lessons.each do |lesson| %>
       <form class="tr" method="POST" action="/teacher-select/<%= lesson.id %>">
         <span class="td"><%= lesson.id %></span>
         <span class="td"><%= lesson.subject.name %></span>

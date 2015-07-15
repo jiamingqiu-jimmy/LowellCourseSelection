@@ -1,5 +1,14 @@
 <article id="a-subject-modify">
   <form class="text-form" method="POST" action="/admin/subject-add">
+      <% Category.each do |category| %>
+      <input type="radio" name="category_id[]" value="<%=category.id%>"> <%= category.name %>
+      <br>
+      <% end %>
+      <!--<select name="category_id">-->
+      <!--  <% Category.each do |category| %>-->
+      <!--    <option value= <%= category.id %> > <%= category.name %></option>-->
+      <!--  <% end %>-->
+      <!--</select>-->
       <input type="text" name="name" placeholder="Name of Subject"></input>
       <button type="submit">Add Subject</button>
   </form>

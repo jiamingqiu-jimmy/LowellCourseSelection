@@ -1,8 +1,18 @@
-<% Subject.each do |subject| %>
-<li>
-  <form method="POST" action="/class-select">
-    <span><%= subject.name %></span>
-    <button type="submit">Select</button>
-  </form>
-</li>
+<% Category.each do |category| %>
+  <div class="table">
+    <div class="caption"><%=category.name%></div>
+    <div class="thead">
+      <div class="tr">
+        <span class="td">Name</span>
+      </div>
+    </div>
+    <div class="tbody">
+    <% category.subjects.each do |subject| %>
+      <form class="tr" method="POST" action="/class-select/<%= subject.id %>">
+        <span class="td"><%= subject.name %></span>  
+        <button type="submit">Select</button>
+      </form>
+    <% end %>
+    </div>
+  </div>
 <% end %>
