@@ -30,6 +30,11 @@ helpers do
     
     session.delete(:user_id)
   end
+  
+  def is_user_admin?
+    user = @current_user
+    user.admin
+  end
 end
 
 set(:sessions, true)

@@ -15,7 +15,7 @@ class User
   		:format => "You must enter a valid email address."
 	  }
 
-  property :password,     BCryptHash, 
+  property :password,     BCryptHash,
     :required => true
 
   validates_confirmation_of :password
@@ -29,6 +29,7 @@ class User
   # validates_presence_of :username, :if => lambda { |t| t.status == :new }
   # validates_presence_of :email, :if => lambda { |t| t.status == :new }
 
+  property :admin,        Boolean, default: false
 	property :time,         DateTime
 	
 	def valid_password?(unhashed_password)
