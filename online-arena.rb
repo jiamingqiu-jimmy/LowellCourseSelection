@@ -47,36 +47,47 @@ get("/") do
 end
 
 get("/class-view") do
-  classes = Lesson.all
-  erb(:class_view, :locals => {:classes => classes})
+  if user_signed_in?
+    classes = Lesson.all
+    erb(:class_view, :locals => {:classes => classes})
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/class-select") do
-  erb(:class_select, :locals => {})
+  if user_signed_in?
+    erb(:class_select, :locals => {})
+  else
+    redirect("/error/user")
+  end
+  
 end
 
 get("/teacher-select")do
-  #--------------------Disabled until ready to launch(unless testing)---------------------#
-#   utc_time = Time.parse(DateTime.now.to_s).utc
-#   pacific_time = utc_time + Time.zone_offset("PDT")
-#   puts utc_time
-#   puts pacific_time
+  if user_signed_in?
+    #--------------------Disabled until ready to launch(unless testing)---------------------#
+    #   utc_time = Time.parse(DateTime.now.to_s).utc
+    #   pacific_time = utc_time + Time.zone_offset("PDT")
+    #   puts utc_time
+    #   puts pacific_time
+      
+    #   user = current_user
+    #   puts user.time
+      
+    #   user_time = Time.parse(user.time.to_s)
+      
+    #   if pacific_time < user_time
+    user = current_user
+    classes = Lesson.all
+    erb(:teacher_select, :locals => {:classes => classes, :user => user})
+    #   else
+    #     redirect("/class-view")
+    #   end
+  else
+    redirect("/error/user")
+  end
   
-#   user = current_user
-#   puts user.time
-  
-#   user_time = Time.parse(user.time.to_s)
-  
-#   if pacific_time < user_time
-#     classes = Lesson.all
-#     erb(:class_select, :locals => {:classes => classes})
-#   else
-#     redirect("/class-view")
-#   end
-# end
-  user = current_user
-  classes = Lesson.all
-  erb(:teacher_select, :locals => {:classes => classes, :user => user})
 end
 
 get("/sign-up") do
@@ -98,49 +109,113 @@ end
 
 #===========Admin Access============#
 get("/admin") do
-  erb(:admin, :locals => {})
+  if user_signed_in?
+    if is_user_admin?
+      erb(:admin, :locals => {})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/modify-registry") do
-  registry = Registry.all
-  erb(:a_registry_modify, :locals =>{:registry => registry})
+  # if user_signed_in?
+  #   if is_user_admin?
+      registry = Registry.all
+      erb(:a_registry_modify, :locals =>{:registry => registry})
+    # else
+      # redirect("/error/admin")
+  #   end
+  # else
+    # redirect("/error/user")
+  # end
 end
 
 get("/admin/modify-category") do
-  categories = Category.all
-  erb(:a_category_modify, :locals => {:categories => categories})
+  if user_signed_in?
+    if is_user_admin?
+      categories = Category.all
+      erb(:a_category_modify, :locals => {:categories => categories})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/modify-subject") do
-  erb(:a_subject_modify, :locals => {})
+  if user_signed_in?
+    if is_user_admin?
+      erb(:a_subject_modify, :locals => {})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/modify-class") do
-  classes = Lesson.all
-  erb(:a_class_modify, :locals => {:classes => classes})
+  if user_signed_in?
+    if is_user_admin?
+      classes = Lesson.all
+      erb(:a_class_modify, :locals => {:classes => classes})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/modify-teacher") do
-  teachers = Teacher.all
-  erb(:a_teacher_modify, :locals => {:teachers => teachers})
+  if user_signed_in?
+    if is_user_admin?
+      teachers = Teacher.all
+      erb(:a_teacher_modify, :locals => {:teachers => teachers})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/set-user-time") do
-  User.each do |user|
-    user.status = :change
-    puts "It worked"
-    if user.save
-      puts "saved"
-    else
-      user.errors.each do |error|
-        puts error
+  if user_signed_in?
+    if is_user_admin?
+      User.each do |user|
+        user.status = :change
+        puts "It worked"
+        if user.save
+          puts "saved"
+        else
+          user.errors.each do |error|
+            puts error
+          end
+        end
       end
+      erb(:a_user_time, :locals => {})
+    else
+      redirect("/error/admin")
     end
+  else
+    redirect("/error/user")
   end
-  erb(:a_user_time, :locals => {})
 end
 #===================================#
 
+#==========Errors===================#
+get("/error/user") do
+  erb(:error_user, :locals => {})  
+end
+
+get("/error/admin") do
+  erb(:error_admin, :locals => {})
+end
 #==========Changes==================#
 post("/admin/category-add")do
   category_name = params["name"]

@@ -1,0 +1,7 @@
+<%  if !user_signed_in? %>
+  <div class="alert alert-danger" role="alert">Sorry! You must be signed in to view this page.</div>
+<% else %>
+  <% if !is_user_admin? %>
+  <div class="alert alert-danger" role="alert">Sorry! You must be an admin to view this page.</div>
+  <% end %>
+<% end %>
