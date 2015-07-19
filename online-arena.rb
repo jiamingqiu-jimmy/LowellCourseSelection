@@ -206,6 +206,19 @@ get("/admin/set-user-time") do
     redirect("/error/user")
   end
 end
+
+get("/admin/view-users") do
+  if user_signed_in?
+    if is_user_admin?
+      users = User.all
+      erb(:a_user_view, :locals => {:users => users})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
+end
 #===================================#
 
 #==========Errors===================#
@@ -401,8 +414,8 @@ post("/sign-up") do
   p puts registry_name
   user = User.new(params[:user])
   
-  user.username.concat("_")
-  user.username.concat(registry_name)
+  # user.username.concat("_")
+  # user.username.concat(registry_name)
   
   Registry.get(registry_id).users << user
   

@@ -1,5 +1,8 @@
-<article id="a-subject-modify">
-  <form class="text-form" method="POST" action="/admin/subject-add">
+<article>
+  <h2>Add a Class Name</h2>
+  <h3><small>Example: AP Human Geography or AP Physics 1A</small></h3>
+  
+  <form class="form-horizontal" method="POST" action="/admin/subject-add">
       <% Category.each do |category| %>
       <input type="radio" name="category_id[]" value="<%=category.id%>"> <%= category.name %>
       <br>

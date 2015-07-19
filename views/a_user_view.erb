@@ -1,0 +1,19 @@
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Registry</th>
+    <th>Class</th>
+    <th>Block</th>
+    <th>Teacher</th>
+  </tr>
+  <% users.each do |user| %>
+  <tr>
+    <td><%=user.username%></td>
+    <td><%= user.registry.name%></td>
+    <% user.lessons.each do |lesson| %>
+    <td><%= Subject.get(lesson.subject_id).name %></td>
+    <td><%= lesson.block %></td>
+    <td><%= Teacher.get(lesson.teacher_id).name %></td>
+    <% end %>
+  </tr>
+  <% end %>

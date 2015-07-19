@@ -1,5 +1,5 @@
-<article id="users-new-page">
-  <div class="text-center"><h2>Create Account</h2> </div>
+<article>
+  <h2>Create Account</h2>
 
   <% if user.errors.any? %>
     <div class="form-errors">
@@ -11,48 +11,52 @@
       </ul
     </div>
   <% end %>
-  <div class="add-menu-display">
-    <form id="create-account-form" class="horizontal-form"
-          method="POST" action="/sign-up">
   
-      <div>
-        
-      <label for="user-username">Username</label>
-  
-      <input id="user-username" type="text" name="user[username]"
-             placeholder="PeanutButter" value="<%= user.username %>">
-        
+  <form class="form-horizontal" role="form" method="POST" action"/sign-up">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Username</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="text" name="user[username]" placeholder="PeanutButter" value="<%= user.username %>">
       </div>
-      
-      <div>
-        
-      <label for="user-email">Email</label>
-  
-      <input id="user-email" type="text" name="user[email]"
-             placeholder="PeanutButter@gmail.com" value="<%= user.email %>">
-        
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="user-email">Email</label>
+      <div class="col-sm-10">
+        <input class = "form-control"id="user-email" type="text" name="user[email]" placeholder="PeanutButter@gmail.com" value="<%= user.email %>">
       </div>
-      
-      
-      <% Registry.each do |registry| %>
-        <input type="radio" name="registry_id" value="<%=registry.id%>"> <%=registry.name%>
-        <br>
-      <% end %>
-      
-      <div>
-      <label for="user-password">Password</label>
-  
-      <input id="user-password" type="password" name="user[password]">
+    </div>
+    
+    <% if Registry.nil? %>
+      <h4 class="col-sm-12">There's no Registries available to select</h4>
+    <% else %>
+    <div class="form-group">
+      <label class ="col-sm-2 control-label" for="user-registry">Registry:</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="sel1">
+        <% Registry.each do |registry| %>
+          <option><%=registry.name%></option>
+        <% end %>
+        </select>
       </div>
+    </div>
+    <% end %>
       
-      <div>
-      <label for="user-password-confirm">Confirm Password</label>
-  
-      <input id="user-password-confirm" type="password"
-             name="user[password_confirmation]">
+      
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label"for="user-password">Password</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="user-password" type="password" name="user[password]"placeholder="Super421PeanutButterWaffleYoYoTurkey">
       </div>
-  
-      <button type="submit">Create Account</button>
-    </form>
-  </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="user-password-confirm">Confirm Password</label>
+      <div class="col-sm-10">
+        <input class="form-control" id="user-password-confirm" type="password" name="user[password_confirmation]" placeholder="Super421PeanutButterWaffleYoYoTurkey">
+      </div>
+    </div>
+
+    <button class="btn btn-success btn-lg pull-right" type="submit">Create Account</button>
+  </form>
 </article>

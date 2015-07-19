@@ -46,6 +46,7 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="/admin/modify-registry">Modify Registries</a></li>
                 <li><a href="/admin/set-user-time">Set User Time</a></li>
+                <li><a href="/admin/view-users">View Users</a></li>
               </ul>
             </li>
             <li><a href="/class-view">View Classes</a></li>
@@ -59,9 +60,8 @@
           <!--  <button type="submit" class="btn btn-default">Submit</button>-->
           <!--</form>-->
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
               <% if user_signed_in? %>
-                <li><a href="/sign_out"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                <li><a href="/sign_out"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                 <p class="navbar-text"></span> Signed in as <%= current_user.username %></p>
               <% else %>
                 <li><a href="/sign-in"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
@@ -75,7 +75,7 @@
     </nav>
 
 
-    <div id="main-content">
+    <div class="container" id="main-content">
        <%= yield %>
     </div>
     <!-- Bootstrap core JavaScript

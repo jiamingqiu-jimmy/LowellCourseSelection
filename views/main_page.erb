@@ -1,27 +1,17 @@
-<article id="main-page">
-  <h3>Users</h3>
-  <% if user_signed_in? %>
-    <p>
-      It looks like you're signed in. Congrats! You can
-      <a href="/sign-out">sign out</a> at any time.
-    </p>
-  <% else %>
-     <p>
-      It doesn't look like you're signed in. You should
-      <a href="/sign-up">create an account</a> or
-      <a href="/sign-in">sign into your existing account</a>.
-    </p>
-  <% end %>
-  <% if users.empty? %>
-    <p>
-      Nobody's signed up yet! Why don't you
-      <a href="/sign-up">create an account</a>?
-    </p>
-  <% else %>
-    <ul class="text-list">
-      <% users.each do |user| %>
-      <li><%= user.username %></li>
-     <% end %>
-    </ul>
-  <% end %>
+<article>
+  <div class="jumbotron">
+    <h1>Online Arena</h1>      
+    <p>If this is your first time please sign up to access the pages!</p>      
+  </div>
+  
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>Project Status:</h3>
+      <p>Currently updating the styling of the pages</p>
+    </div>
+    <div class="col-sm-6">
+      <h3>Recent Updates:</h3>
+      <p>Updated the looks of Sign In/Sign Up</p>
+    </div>
+  </div>
 </article>

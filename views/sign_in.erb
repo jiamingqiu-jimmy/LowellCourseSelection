@@ -1,5 +1,5 @@
-<article id="sessions-new-page">
-  <div class="text-center"><h2>Sign In</h2></div>
+<article>
+  <h2>Sign In</h2>
 
   <% if user.errors.any? %>
     <div class="form-errors">
@@ -11,19 +11,22 @@
       </ul
     </div>
   <% end %>
+  
   <div>
-    <form id="sign-in-form" class="horizontal-form"
-          method="POST" action="/sign-in">
-  
-      <label for="user-email">Email</label>
-      
-      <input id="user-email" type="text" name="email" value="<%= user.email%>"
-      
-      <label for="user-password">Password</label>
-  
-      <input id="user-password" type="password" name="password">
-  
-      <button type="submit">Sign In</button>
+    <form class="form-horizontal" role="form" method="POST" action="/sign-in">
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="user-email">Email</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="user-email" type="text" name="email" value="<%= user.email%>">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label" for="user-password">Password</label>
+        <div class="col-sm-10">
+          <input class="form-control" id="user-password" type="password" name="password">
+        </div>
+      </div>  
+      <button class="btn btn-success btn-lg pull-right" type="submit">Sign In</button>
     </form>
   </div>
 </article>
