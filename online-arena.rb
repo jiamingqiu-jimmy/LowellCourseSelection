@@ -149,7 +149,8 @@ end
 get("/admin/modify-subject") do
   if user_signed_in?
     if is_user_admin?
-      erb(:a_subject_modify, :locals => {})
+      subjects = Subject.all
+      erb(:a_subject_modify, :locals => {:subjects => subjects})
     else
       redirect("/error/admin")
     end

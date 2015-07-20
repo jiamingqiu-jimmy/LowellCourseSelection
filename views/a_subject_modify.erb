@@ -3,8 +3,8 @@
     <h4><small style="margin-left: 20px">Example: AP Human Geography or AP Physics 1A</small></h4>
     <form class="form-horizontal" role="form" method="POST" action="/admin/subject-add">
       <div class="form-group">
-        <div class="col-sm-12">
-          <label style="font-size: 120%" for="category-list">Select the Category which the class falls under:</label>
+        <label style="font-size: 120%" class="col-sm-2 control-label" for="category-list">Class's Category:</label>
+        <div class="col-sm-10">
           <select class="form-control" id="category-list">
             <option>Select a Category</option>
             <% Category.each do |category| %>
@@ -14,11 +14,28 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="col-sm-12">
-        <label style="font-size:120%" for="subject-name">Name of Class:</label>
-        <input class="form-control" type="text" name="name" id="subject-name" placeholder="AP Psychology"></input>
+        <label style="font-size:120%" class="col-sm-2 control-label" for="subject-name">Name of Class:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="name" id="subject-name" placeholder="AP Psychology"></input>
         </div>
       </div>
-      <button class="btn btn-success btn-lg pull-right" type="submit">Add Class Name</button>
+      <button class="btn btn-success btn-md pull-right" type="submit">Add Class Name</button>
     </form>
+    <br>
+    <h2>Subjects</h2>
+    <h3><small style="color: rgb(255, 92, 51)">Beware: Deleting a Class Name deletes all classes under it</small></h3>
+    
+    <% subjects.each do |subject| %>
+    <form class="form-horizontal" method="POST" action="/admin/subject-delete">
+      <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+          <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Class Name</button>
+          <h4><%= subject.name %></h4>
+          <% subject.lessons.each do |lesson| %>
+          <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span>
+          <% end %>
+        </div>
+      </div>
+    </form>
+    <% end %>
 </article>
