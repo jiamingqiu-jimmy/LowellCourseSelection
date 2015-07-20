@@ -1,17 +1,30 @@
 <article>
-  <h2>Add a Teacher</h2>
-  
-  <form class="form-horizontal" role="form" method="POST" action="/admin/teacher-add">
-    <div class="form-group">
-      
-    </div>
-      <input type="text" name="name" placeholder="Name of Teacher"></input>
-      <button type="submit">Add Teacher</button>
-  </form>
-  <% teachers.each do |teacher| %>
-    <li><%=teacher.name%></li>
-    <form method="POST" action="/admin/teacher-delete/<%= teacher.id %>">
-      <button type ="submit">Delete Teacher</button>
+    <h2>Add a Teacher</h2>
+    <h4><small style="margin-left: 20px">Mr. Sinn or Mr. Marten</small></h4>
+    <form class="form-horizontal" role="form" method="POST" action="/admin/teacher-add">
+      <div class="form-group">
+        <label style="font-size:120%" class="col-sm-2 control-label" for="teacher-name">Name of Class:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" name="name" id="teacher-name" placeholder="Mr. Martin"></input>
+        </div>
+      </div>
+      <button class="btn btn-success btn-md pull-right" type="submit">Add Teacher</button>
     </form>
-  <% end %>
+    <br>
+    <h2>Teachers</h2>
+    <h3><small style="color: rgb(255, 92, 51)">Beware: Deleting a Teacher deletes all classes under him/her</small></h3>
+    
+    <% teachers.each do |teacher| %>
+    <form class="form-horizontal" method="POST" action="/admin/teacher-delete">
+      <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+          <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Teacher</button>
+          <h4><%= teacher.name %></h4>
+          <% teacher.lessons.each do |lesson| %>
+          <span><strong>Class:</strong> <%= Subject.get(lesson.subject_id).name %> ----- <strong>Block:</strong> <%= lesson.block %></span>
+          <% end %>
+        </div>
+      </div>
+    </form>
+    <% end %>
 </article>
