@@ -1,28 +1,84 @@
-<article id="a-class-modify">
-  <form class="text-form" method="POST" action="/admin/class-add">
+<article>
+  <h2>Add a Class</h2>
 
-    <select name="subject_id">
-      <% Subject.each do |subject| %>
-        <option value= <%= subject.id %> > <%= subject.name %></option>
-      <% end %>
-    </select>
+  <form class="form-horizontal" role="form" method="POST" action="/admin/class-add">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Name:</label>
+      <div class="col-sm-10">
+        <select class="form-control" name="subject_id">
+          <% Subject.each do |subject| %>
+            <option value= <%= subject.id %> > <%= subject.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+    <% puts "buh" %>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Block:</label>
+      <div class="col-sm-10">
+        <input class="form-control" maxlength="2" min="1" max="9" type="number" name="block" placeholder="Block"></input>
+      </div>
+    </div>
     
-    <input type="number" name="block" placeholder="Block"></input>
-    <input type="number" name="space" placeholder="Space"></input>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Space:</label>
+      <div class="col-sm-10">
+        <input class="form-control" maxlength="2" min="0" max="50" type="number" name="space" placeholder="Space"></input>
+      </div>
+    </div>
     
-    <select name="teacher_id">
-      <% Teacher.each do |teacher| %>
-        <option value= <%= teacher.id %> > <%= teacher.name %> </option>
-      <% end %>
-    </select>
-    
-    <button type="submit">Add Class</button>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Teacher:</label>
+      <div class="col-sm-10">
+        <select class="form-control" name="teacher_id">
+          <% Teacher.each do |teacher| %>
+            <option value= <%= teacher.id %>><%= teacher.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-success btn-md pull-right" type="submit">Add Class</button>
   </form>
+  <br>
   
-  <% classes.each do |lesson| %>
-    <li><%=lesson.subject.name%></li>
-    <form method="POST" action="/admin/class-delete/<%= lesson.id %>">
-      <button type ="submit">Delete Class</button>
-    </form>
+  <h2>Classes</h2>
+  <% categories.each do |category| %>
+  <div class="panel panel-info">
+    <div class="panel-heading clearfix">
+      <h4><%= category.name %></h4>
+    </div>
+    
+    <div class="panel-body">
+      <table style="margin: 0px" class="table table-striped">
+        <thead>
+          <tr>
+            <td class="col-sm-3">Name</td>
+            <td class="col-sm-2">Block</td>
+            <td class="col-sm-2">Space</td>
+            <td class="col-sm-4">Teacher</td>
+            <td class="col-sm-1"></td>
+          </tr>
+        </thead>
+      </table>
+      <% category.subjects.each do |subject| %>
+        <% subject.lessons.each do |lesson| %>
+        <form>
+          <table style="margin: 0px" class="table table-striped">
+            <tbody>
+              <tr>
+                <td class="col-sm-3"><%= Subject.get(lesson.subject_id).name %></td>
+                <td class="col-sm-2"><%= lesson.block %></td>
+                <td class="col-sm-2"><%= lesson.space %></td>
+                <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>
+                <td class="col-sm-1"><button class="btn btn-danger btn-xs pull-right">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
   <% end %>
 </article>

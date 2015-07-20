@@ -1,6 +1,6 @@
 <article>
   <h2>Add a Category</h2>
-  <h2><small>For Example: Math</small></h2>
+  <h4><small style="margin-left: 20px">For Example: Math</small></h4>
   <form class="form-horizontal" role="form" method="POST" action="/admin/category-add">
     <div class="form-group">
       <label class="col-sm-2 control-label" style="font-size: 120%">Category Name</label>
@@ -12,7 +12,7 @@
   </form>
   <br>
   <h2>Categories</h2>
-  <h3><small style="color: rgb(255, 92, 51)">Beware: Deleting a category deletes all classes in it</small></h3>
+  <h4><small style="margin-left: 20px; color: rgb(255, 92, 51)">Beware: Deleting a category deletes all classes in it</small></h4>
      
   <% categories.each do |category| %>
   <form class="form-horizontal" method="POST" action="/admin/category-delete/">

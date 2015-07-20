@@ -162,8 +162,8 @@ end
 get("/admin/modify-class") do
   if user_signed_in?
     if is_user_admin?
-      classes = Lesson.all
-      erb(:a_class_modify, :locals => {:classes => classes})
+      categories = Category.all
+      erb(:a_class_modify, :locals => {:categories => categories})
     else
       redirect("/error/admin")
     end
