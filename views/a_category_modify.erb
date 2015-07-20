@@ -3,7 +3,7 @@
   <h2><small>For Example: Math</small></h2>
   <form class="form-horizontal" role="form" method="POST" action="/admin/category-add">
     <div class="form-group">
-      <label class="col-sm-2 control-label">Category Name</label>
+      <label class="col-sm-2 control-label" style="font-size: 120%">Category Name</label>
       <div class="col-sm-10">
         <input class="form-control" type="text" name="name" placeholder="Science"></input>
       </div>
@@ -11,29 +11,25 @@
     <button class="btn btn-success btn-md pull-right" type="submit">Add Category</button>
   </form>
   <br>
-  <h2>Delete a Category</h2>
-  <h2><small>Beware this will delete all classes assigned to it</small></h2>
+  <h2>Categories</h2>
+  <h3><small style="color: rgb(255, 92, 51)">Beware: Deleting a category deletes all classes in it</small></h3>
      
   <% categories.each do |category| %>
   <form class="form-horizontal" method="POST" action="/admin/category-delete/">
-    <!--<label class="checkbox">-->
-    <!--  <input type="checkbox" name="category_ids[]" value="<%= category.id %>"><h4><%=category.name%></h4>-->
-    <!--</label>-->
   <div class="panel panel-info">
     <div class="panel-heading clearfix">
-      <button class="btn btn-danger btn-sm pull-right" type="submit">Delete All of This</button>
+      <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Category</button>
       <h4 class="pull-left"><%= category.name %></h4>
     </div>
     <div class="panel-body">
       <% category.subjects.each do |subject| %>
-      <h4>Class Name: <small style="color: #000"><strong><%= subject.name %></strong></small></h4>
+      <h4>Class: <small style="color: #000"><strong><%= subject.name %></strong></small></h4>
         <% subject.lessons.each do |lesson| %>
         <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span>
         <% end %>
       <% end %>
     </div>
   </div>  
-  
   </form>
   <% end %>
 </article>
