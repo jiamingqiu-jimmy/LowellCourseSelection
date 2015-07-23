@@ -48,8 +48,8 @@ end
 
 get("/class-view") do
   if user_signed_in?
-    classes = Lesson.all
-    erb(:class_view, :locals => {:classes => classes})
+    categories = Category.all
+    erb(:class_view, :locals => {:categories => categories})
   else
     redirect("/error/user")
   end
@@ -57,7 +57,8 @@ end
 
 get("/class-select") do
   if user_signed_in?
-    erb(:class_select, :locals => {})
+    categories = Category.all(order: :name.asc)
+    erb(:class_select, :locals => {:categories => categories})
   else
     redirect("/error/user")
   end
@@ -185,7 +186,7 @@ get("/admin/modify-teacher") do
   end
 end
 
-get("/admin/set-user-time") do
+get("/admin/set-class-select") do
   if user_signed_in?
     if is_user_admin?
       User.each do |user|
@@ -259,6 +260,9 @@ end
 post("/admin/subject-add")do
   subject_name = params["name"]
   subject_category = params[:category_id]
+  
+  puts subject_name
+  p puts params[:category_id]
   
   subject = Subject.new(
     name:      subject_name

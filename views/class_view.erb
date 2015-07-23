@@ -1,23 +1,109 @@
-<% Category.each do |category| %>
-  <div class="table">
-    <div class="caption"><%=category.name%></div>
-    <div class="thead">
-      <div class="tr">
-        <span class="td">#</span>
-        <span class="td">Name</span>
-        <span class="td">Block</span>
-        <span class="td">Space</span>
-        <span class="td">Teacher</span>
-      </div>
-    </div>
-    <div class="tbody">
-    <% category.subjects.lessons.each do |lesson| %>
-        <span class="td"><%= lesson.id %></span>
-        <span class="td"><%= lesson.subject.name %></span>
-        <span class="td"><%= lesson.block %></span>
-        <span class="td"><%= lesson.space %></span>
-        <span class="td"><%= lesson.teacher.name %></span>
-    <% end %>
-    </div>
+<h2>Classes</h2>
+  
+  <!--First Option for Viewing-->
+  
+  <!--<% categories.each do |category| %>-->
+  <!--<div class="panel panel-info">-->
+  <!--  <div class="panel-heading clearfix">-->
+  <!--    <h4><%= category.name %></h4>-->
+  <!--  </div>-->
+    
+  <!--  <div class="panel-body">-->
+  <!--    <table style="margin: 0px" class="table table-striped">-->
+  <!--      <thead>-->
+  <!--        <tr>-->
+  <!--          <td class="col-sm-4">Name</td>-->
+  <!--          <td class="col-sm-2">Block</td>-->
+  <!--          <td class="col-sm-2">Space</td>-->
+  <!--          <td class="col-sm-4">Teacher</td>-->
+  <!--        </tr>-->
+  <!--      </thead>-->
+  <!--    </table>-->
+  <!--    <% category.subjects.each do |subject| %>-->
+        <!--<table style="margin: 0px" class="table table-striped">-->
+        <!--  <tbody>-->
+        <!--    <% subject.lessons.each do |lesson| %>-->
+        <!--    <tr>-->
+        <!--      <td class="col-sm-4"><%= Subject.get(lesson.subject_id).name %></td>-->
+        <!--      <td class="col-sm-2"><%= lesson.block %></td>-->
+        <!--      <td class="col-sm-2"><%= lesson.space %></td>-->
+        <!--      <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>-->
+        <!--    </tr>-->
+        <!--    <% end %>-->
+        <!--  </tbody>-->
+        <!--</table>-->
+  <!--    <% end %>-->
+  <!--  </div>-->
+  <!--</div>-->
+  <!--<% end %>-->
+  
+  <!--Second Option for Viewing-->
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+  <% categories.each do |category| %>
+  <li><a href='<%= "#".concat(category.name) %>' data-toggle="tab"><%=category.name %></a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <div id="Home" class="tab-pane fade in active">
+    <h3>Instructions</h3>
+    <p>Click a category to view the classes that fall under it</p>
   </div>
-<% end %>
+  <% categories.each do |category| %>
+    <div id='<%= category.name %>' class="tab-pane fade" >
+      <table style="margin: 0px" class="table table-striped">
+        <thead>
+          <tr>
+            <td class="col-sm-4"><strong>Name</strong></td>
+            <td class="col-sm-2"><strong>Block</strong></td>
+            <td class="col-sm-2"><strong>Space</strong></td>
+            <td class="col-sm-4"><strong>Teacher</strong></td>
+          </tr>
+        </thead>
+      </table>
+      <table style="margin: 0px" class="table table-striped">
+        <tbody>
+          <% category.subjects(order: :name.asc).each do |subject| %>
+            <% subject.lessons.each do |lesson| %>
+            <tr>
+              <td class="col-sm-4"><%= Subject.get(lesson.subject_id).name %></td>
+              <td class="col-sm-2"><%= lesson.block %></td>
+              <td class="col-sm-2"><%= lesson.space %></td>
+              <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>
+            </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>
+  
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+    // $('.nav nav-tabs li').on('click'), function() {
+      
+    //   var $panel = $(this).closest('.nav nav-tabs');
+      
+    //   4panel.find('li.active').removeClass('active');
+    //   $(this).addClass('active')
+      
+    //   var panelToShow = $(this).attr('rel');
+      
+    //   $panel.find('.tab-pane fade').slideUp(300, showNextPanel);
+      
+    //   function showNextPanel() {
+    //     $(this).removeClass('active');
+        
+    //     $('#'+panelToShow).slideDown(300, function(){
+    //       $(this).addClass('active')
+    //     })
+    //   }
+    // }
+});
+</script>

@@ -5,10 +5,10 @@
       <div class="form-group">
         <label style="font-size: 120%" class="col-sm-2 control-label" for="category-list">Class's Category:</label>
         <div class="col-sm-10">
-          <select class="form-control" id="category-list">
-            <option>Select a Category</option>
+          <select class="form-control" name="category_id" id="category-list">
+            <option disabled selected="true">Select a Category</option>
             <% Category.each do |category| %>
-            <option><%= category.name %></option>
+            <option value=<%=category.id %>><%= category.name %></option>
             <% end %>
           </select>
         </div>
