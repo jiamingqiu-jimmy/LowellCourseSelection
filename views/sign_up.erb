@@ -33,9 +33,9 @@
     <div class="form-group">
       <label class ="col-sm-2 control-label" for="user-registry">Registry:</label>
       <div class="col-sm-10">
-        <select class="form-control" id="sel1">
+        <select class="form-control" id="sel1" name="registry_id">
         <% Registry.each do |registry| %>
-          <option><%=registry.name%></option>
+          <option value='<%=registry.id%>'><%=registry.name%></option>
         <% end %>
         </select>
       </div>

@@ -1,42 +1,4 @@
 <h2>Classes</h2>
-  
-  <!--First Option for Viewing-->
-  
-  <!--<% categories.each do |category| %>-->
-  <!--<div class="panel panel-info">-->
-  <!--  <div class="panel-heading clearfix">-->
-  <!--    <h4><%= category.name %></h4>-->
-  <!--  </div>-->
-    
-  <!--  <div class="panel-body">-->
-  <!--    <table style="margin: 0px" class="table table-striped">-->
-  <!--      <thead>-->
-  <!--        <tr>-->
-  <!--          <td class="col-sm-4">Name</td>-->
-  <!--          <td class="col-sm-2">Block</td>-->
-  <!--          <td class="col-sm-2">Space</td>-->
-  <!--          <td class="col-sm-4">Teacher</td>-->
-  <!--        </tr>-->
-  <!--      </thead>-->
-  <!--    </table>-->
-  <!--    <% category.subjects.each do |subject| %>-->
-        <!--<table style="margin: 0px" class="table table-striped">-->
-        <!--  <tbody>-->
-        <!--    <% subject.lessons.each do |lesson| %>-->
-        <!--    <tr>-->
-        <!--      <td class="col-sm-4"><%= Subject.get(lesson.subject_id).name %></td>-->
-        <!--      <td class="col-sm-2"><%= lesson.block %></td>-->
-        <!--      <td class="col-sm-2"><%= lesson.space %></td>-->
-        <!--      <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>-->
-        <!--    </tr>-->
-        <!--    <% end %>-->
-        <!--  </tbody>-->
-        <!--</table>-->
-  <!--    <% end %>-->
-  <!--  </div>-->
-  <!--</div>-->
-  <!--<% end %>-->
-  
   <!--Second Option for Viewing-->
 
 <ul class="nav nav-tabs">
@@ -80,30 +42,4 @@
     </div>
   <% end %>
 </div>
-  
-<script>
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
-    // $('.nav nav-tabs li').on('click'), function() {
-      
-    //   var $panel = $(this).closest('.nav nav-tabs');
-      
-    //   4panel.find('li.active').removeClass('active');
-    //   $(this).addClass('active')
-      
-    //   var panelToShow = $(this).attr('rel');
-      
-    //   $panel.find('.tab-pane fade').slideUp(300, showNextPanel);
-      
-    //   function showNextPanel() {
-    //     $(this).removeClass('active');
-        
-    //     $('#'+panelToShow).slideDown(300, function(){
-    //       $(this).addClass('active')
-    //     })
-    //   }
-    // }
-});
-</script>
+

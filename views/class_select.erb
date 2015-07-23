@@ -1,48 +1,5 @@
 <h2>Classes</h2>
 
-<!--Option One for Selecting-->
-
-<!--<% categories.each do |category| %>-->
-<!--<div class="panel panel-info">-->
-<!--  <div class="panel-heading clearfix">-->
-<!--    <h4><%= category.name %></h4>-->
-<!--  </div>-->
-  
-<!--  <div class="panel-body">-->
-<!--    <table style="margin: 0px" class="table table-striped">-->
-<!--      <thead>-->
-<!--        <tr>-->
-<!--          <td class="col-sm-3">Name</td>-->
-<!--          <td class="col-sm-2">Block</td>-->
-<!--          <td class="col-sm-2">Space</td>-->
-<!--          <td class="col-sm-4">Teacher</td>-->
-<!--          <td class="col-sm-1"></td>-->
-<!--        </tr>-->
-<!--      </thead>-->
-<!--    </table>-->
-<!--    <% category.subjects(order: :name.asc).each do |subject| %>-->
-<!--      <% subject.lessons.each do |lesson| %>-->
-<!--      <form>-->
-<!--        <table style="margin: 0px" class="table table-striped">-->
-<!--          <tbody>-->
-<!--            <tr>-->
-<!--              <td class="col-sm-3"><%= Subject.get(lesson.subject_id).name %></td>-->
-<!--              <td class="col-sm-2"><%= lesson.block %></td>-->
-<!--              <td class="col-sm-2"><%= lesson.space %></td>-->
-<!--              <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>-->
-<!--              <td class="col-sm-1"><button class="btn btn-success btn-xs pull-right">Add Class</button></td>-->
-<!--            </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </form>-->
-<!--      <% end %>-->
-<!--    <% end %>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<% end %>-->
-
-  <!--Second Option for Viewing-->
-
 <ul class="nav nav-tabs">
   <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
   <% categories.each do |category| %>
@@ -57,53 +14,23 @@
   </div>
   <% categories.each do |category| %>
     <div id='<%= category.name %>' class="tab-pane fade" >
-      <table style="margin: 0px" class="table table-striped">
-        <thead>
-          <tr>
-            <td class="col-sm-8"><strong>Name</strong></td>
-            <td class="col-sm-4"><strong>Button</strong></td>
-          </tr>
-        </thead>
-      </table>
+      <div class="col-sm-8" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Name</strong></div>
+      <div class="col-sm-4" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Button</strong></div>
+      
       <% category.subjects(order: :name.asc).each do |subject| %>
-      <form>
-      <table style="margin: 0px" class="table table-striped">
-        <tbody>
-            <tr>
-              <td class="col-sm-8"><%= subject.name %></td>
-              <td class="col-sm-4"><button class="btn btn-success btn-xs">Add Class</button></td>
-            </tr>
-        </tbody>
-      </table>
+      <form class="form-horizontal" role="form" method="POST" action="/class-select">
+        <div style="padding-left: 15px; padding-right: 15px; margin-bottom: 5px" class="form-group">
+          <input style="border:0" type="text" name="subject_id"readOnly hidden value="<%= subject.id %>"> <!--- Some unneeded properties --->
+          <div class="col-sm-8">
+            <input style="border: 0"type="text" name="subject_name"readOnly value="<%= subject.name%>"><!---You don't really need this for a params --->
+          </div>
+          <div style="padding-top: 5px;"class="col-sm-4">
+            <button class="btn btn-success btn-xs">Add Class</button>
+          </div>
+        </div>
       </form>
       <% end %>
     </div>
   <% end %>
 </div>
   
-<script>
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
-    // $('.nav nav-tabs li').on('click'), function() {
-      
-    //   var $panel = $(this).closest('.nav nav-tabs');
-      
-    //   4panel.find('li.active').removeClass('active');
-    //   $(this).addClass('active')
-      
-    //   var panelToShow = $(this).attr('rel');
-      
-    //   $panel.find('.tab-pane fade').slideUp(300, showNextPanel);
-      
-    //   function showNextPanel() {
-    //     $(this).removeClass('active');
-        
-    //     $('#'+panelToShow).slideDown(300, function(){
-    //       $(this).addClass('active')
-    //     })
-    //   }
-    // }
-});
-</script>

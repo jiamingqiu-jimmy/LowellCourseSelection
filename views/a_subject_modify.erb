@@ -31,9 +31,11 @@
         <div class="panel-heading clearfix">
           <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Class Name</button>
           <h4><%= subject.name %></h4>
+        </div>
+        <div class="panel-body">
           <% subject.lessons.each do |lesson| %>
           <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span> <br>
-          <% end %>
+          <% end %>          
         </div>
       </div>
     </form>

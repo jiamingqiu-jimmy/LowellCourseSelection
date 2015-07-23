@@ -25,7 +25,7 @@
       <% category.subjects.each do |subject| %>
       <h4>Class: <small style="color: #000"><strong><%= subject.name %></strong></small></h4>
         <% subject.lessons.each do |lesson| %>
-        <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span>
+        <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span><br>
         <% end %>
       <% end %>
     </div>

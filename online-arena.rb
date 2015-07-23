@@ -48,7 +48,7 @@ end
 
 get("/class-view") do
   if user_signed_in?
-    categories = Category.all
+    categories = Category.all(order: :name.asc)
     erb(:class_view, :locals => {:categories => categories})
   else
     redirect("/error/user")
@@ -80,8 +80,7 @@ get("/teacher-select")do
       
     #   if pacific_time < user_time
     user = current_user
-    classes = Lesson.all
-    erb(:teacher_select, :locals => {:classes => classes, :user => user})
+    erb(:teacher_select, :locals => {:user => user})
     #   else
     #     redirect("/class-view")
     #   end
@@ -426,7 +425,7 @@ post("/sign-up") do
   
   if user.save
     sign_in!(user)
-    user.status = :change
+    user.validation_status = :change
     user.save
     redirect("/")
   else
@@ -440,7 +439,7 @@ post("/sign-in") do
   if user && user.valid_password?(params[:password])
     sign_in!(user)
     puts "Worked?"
-    user.status = :change
+    user.validation_status = :change
     user.save
     redirect("/")
   else
@@ -448,7 +447,7 @@ post("/sign-in") do
   end
 end
 
-post("/teacher-select/:lesson_id") do
+post("/teacher-select") do
   p puts params["lesson_id"]
   lesson_id = params["lesson_id"]
   a = current_user
@@ -465,7 +464,7 @@ post("/teacher-select/:lesson_id") do
   end
 end
 
-post("/class-select/:subject_id") do
+post("/class-select") do
   subject_id = params["subject_id"]
   u = current_user
   user = User.get(u.id)

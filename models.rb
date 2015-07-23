@@ -23,7 +23,9 @@ class User
 	attr_accessor :password_confirmation
 	validates_length_of :password_confirmation, :min => 6, :if => lambda { |t| t.status == :new }
 	
-  property :status,       Enum[ :new, :change], default: :new
+  property :validation_status,       Enum[ :new, :change], default: :new
+  
+  property :selection_status,        Enum[ :none, :class, :teacher], default: :none
   
   # validates_presence_of :password, :if => lambda { |t| t.status == :new }
   # validates_presence_of :username, :if => lambda { |t| t.status == :new }

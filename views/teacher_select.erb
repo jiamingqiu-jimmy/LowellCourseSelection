@@ -37,29 +37,56 @@
 
 <h4>Current Time: <span id="time" /></h4>
 
-<% user.subjects.each do |subject| %>
-  <div class="table">
-    <div class="caption"><%=Category.get(subject.category_id)%></div>
-    <div class="thead">
-      <div class="tr">
-        <span class="td">#</span>
-        <span class="td">Name</span>
-        <span class="td">Block</span>
-        <span class="td">Space</span>
-        <span class="td">Teacher</span>
-      </div>
-    </div>
-    <div class="tbody">
-    <% subject.lessons.each do |lesson| %>
-      <form class="tr" method="POST" action="/teacher-select/<%= lesson.id %>">
-        <span class="td"><%= lesson.id %></span>
-        <span class="td"><%= lesson.subject.name %></span>
-        <span class="td"><%= lesson.block %></span>
-        <span class="td"><%= lesson.space %></span>
-        <span class="td"><%= lesson.teacher.name %></span>
-        <button type="submit">Select</button>
-      </form>
-    <% end %>
-    </div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+  <% user.subjects.each do |subject| %>
+  <li><a href='<%= "#".concat(subject.name) %>' data-toggle="tab"><%=subject.name %></a></li>
+  <% end %>
+</ul>
+
+<div class="tab-content">
+  <div id="Home" class="tab-pane fade in active">
+    <h3>Instructions</h3>
+    <p>Click a class to view the classes that fall under it</p>
   </div>
-<% end %>
+  <% user.subjects(order: :name.asc).each do |subject| %>
+    <div id='<%= subject.name %>' class="tab-pane fade"> <!--- Fix this Styling Issue Too repetitive--->
+      <div class="col-sm-5" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Name</strong></div>
+      <div class="col-sm-2" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Block</strong></div>
+      <div class="col-sm-2" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Space</strong></div>
+      <div class="col-sm-3" style="padding-bottom: 10px; padding-top: 10px; border-bottom: 1px; border-style: solid; border-top: 0px; border-right: 0px; border-left: 0px; border-color: grey;"><strong>Button</strong></div>
+      <% subject.lessons(order: :block.asc).each do |lesson| %>
+      <form class="form-horizontal" role="form" method="POST" action="/teacher-select">
+        <div style="padding-left: 15px; padding-right:15px; margin-bottom; px" class="form-group"></div>
+        <input type="text" name="lesson_id" readOnly hidden value="<%= lesson.id %>">
+        <div class="col-sm-5">
+          <%= Teacher.get(lesson.teacher_id).name %>
+        </div>
+        <div class="col-sm-2">
+          <%= lesson.block %>
+        </div>
+        <div class="col-sm-2">
+          <%= lesson.space %>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-success btn-xs">Select Teacher</button>
+        </div>
+      </form>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $.ajax({
+      type: 'GET',
+      url: '/class-select',
+      success: function() {
+        console.log('success', "Hi");
+        alert("Hi!")
+      }
+    });
+  });
+</script>
