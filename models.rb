@@ -21,7 +21,7 @@ class User
   validates_confirmation_of :password
   
 	attr_accessor :password_confirmation
-	validates_length_of :password_confirmation, :min => 6, :if => lambda { |t| t.status == :new }
+	validates_length_of :password_confirmation, :min => 6, :if => lambda { |t| t.validation_status == :new }
 	
   property :validation_status,       Enum[ :new, :change], default: :new
   

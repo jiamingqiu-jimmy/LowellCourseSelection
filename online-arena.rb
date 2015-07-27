@@ -1,5 +1,6 @@
 require "sinatra"
 require "data_mapper"
+require 'json'
 
 require "./environment"
 
@@ -58,7 +59,11 @@ end
 get("/class-select") do
   if user_signed_in?
     categories = Category.all(order: :name.asc)
-    erb(:class_select, :locals => {:categories => categories})
+    user = current_user
+    a = user.subjects
+    user_subjects = JSON.parse(a.to_json)
+    puts user_subjects
+    erb(:class_select, :locals => {:categories => categories, :user => user, :user_subjects => user_subjects})
   else
     redirect("/error/user")
   end
@@ -245,7 +250,7 @@ post("/admin/category-add")do
   end
 end
 
-post("/admin/category-delete/:category_id")do
+post("/admin/category-delete")do
   category = Category.get(params["category_id"])
   category.destroy
   
@@ -465,10 +470,19 @@ post("/teacher-select") do
 end
 
 post("/class-select") do
-  subject_id = params["subject_id"]
+  subject_names = params["schedule"]
   u = current_user
   user = User.get(u.id)
-  user.subjects << Subject.get(subject_id)
+  # p puts subject_names
+  subject_names.each do |subject_name|
+    # puts subject_name
+    if (!Subject.first(:name => subject_name).nil?)
+      # puts "Hi"
+      user.subjects << Subject.first(:name => subject_name)
+    end
+  end
+
+  # user.subjects << Subject.get(subject_id)
   
   if user.save
     redirect("/class-select")
