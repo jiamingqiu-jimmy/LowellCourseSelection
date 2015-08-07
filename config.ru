@@ -1,3 +1,3 @@
-require './online-arenas'
+require './online-arena'
 
 run Sinatra::Application
