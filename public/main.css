@@ -35,3 +35,7 @@ DIV.caption
 body {
   font-family: 'Oswald', Helvetica;
 }
+
+.table input[readonly] {
+  background-color: white !important;
+}

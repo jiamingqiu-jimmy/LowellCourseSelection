@@ -452,23 +452,6 @@ post("/sign-in") do
   end
 end
 
-post("/teacher-select") do
-  p puts params["lesson_id"]
-  lesson_id = params["lesson_id"]
-  a = current_user
-  user = User.get(a.id)
-  user.lessons << Lesson.get(lesson_id)
-  if user.save
-    p puts user
-    redirect("/teacher-select")
-  else
-    user.errors.each do |error|
-    	p error
-   	  erb(:error)
-    end
-  end
-end
-
 post("/class-select") do
   subject_names = params["schedule"]
   u = current_user
@@ -490,6 +473,42 @@ post("/class-select") do
     user.errors.each do |error|
       p error
     end
+    erb(:error)
+  end
+end
+
+post("/teacher-select") do
+  p puts params["lesson_id"]
+  lesson_id = params["lesson_id"]
+  a = current_user
+  user = User.get(a.id)
+  user.lessons << Lesson.get(lesson_id)
+  if user.save
+    p puts user
+    redirect("/teacher-select")
+  else
+    user.errors.each do |error|
+    	p error
+   	  erb(:error)
+    end
+  end
+end
+
+post("/add-student") do
+  id = params[:lesson_id]
+  name = params[:lesson_name]
+  puts id
+  puts name
+  
+  lesson = Lesson.get(id)
+  if (lesson.space >= 1)
+    puts lesson.space
+    lesson.space = lesson.space - 1
+    lesson.save
+    puts lesson.space
+    lesson.space = lesson.space + 1
+    lesson.save
+  else
     erb(:error)
   end
 end
