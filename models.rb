@@ -130,5 +130,5 @@ class Registry
   has n, :users
 end
 
-DataMapper.finalize
-DataMapper.auto_upgrade!
+DataMapper.finalize()
+DataMapper.auto_upgrade!()
