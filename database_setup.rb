@@ -1,3 +1,5 @@
+require 'data_mapper'
+
 # if ENV['RACK_ENV'] == 'production'
 #   # We're running on Heroku
 #   DataMapper.setup(:default, ENV['DATABASE_URL'])
