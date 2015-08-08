@@ -1,7 +1,7 @@
 require "sinatra"
 require "data_mapper"
 require "./environment"
-
+require "./seed"
 helpers do
   def current_user
     # Return nil if no user is logged in
