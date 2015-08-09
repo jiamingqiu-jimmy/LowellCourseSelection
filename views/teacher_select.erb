@@ -42,7 +42,7 @@
   <ul class="nav nav-tabs">
     <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
     <% user.subjects.each do |subject| %>
-    <li><a href='<%= "#".concat(subject.name) %>' data-toggle="tab"><%=subject.name %></a></li>
+    <li><a href='<%= "#".concat(subject.id.to_s) %>' data-toggle="tab"><%=subject.name %></a></li>
     <% end %>
   </ul>
   
@@ -219,7 +219,7 @@
       </form>
     </div>
     <% user.subjects(order: :name.asc).each do |subject| %>
-    <div id='<%= subject.name %>' class="tab-pane fade">
+    <div id='<%= subject.id %>' class="tab-pane fade">
       <table style="margin: 0px" class="table table-striped">
         <thead>
           <tr>
