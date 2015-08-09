@@ -4,7 +4,7 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
   <% categories.each do |category| %>
-  <li><a href='<%= "#".concat(category.name) %>' data-toggle="tab"><%=category.name %></a></li>
+  <li><a href='<%= "#".concat(category.id.to_s) %>' data-toggle="tab"><%=category.name%></a></li>
   <% end %>
 </ul>
 
@@ -14,7 +14,7 @@
     <p>Click a category to view the classes that fall under it</p>
   </div>
   <% categories.each do |category| %>
-    <div id='<%= category.name %>' class="tab-pane fade" >
+    <div id='<%= category.id %>' class="tab-pane fade" >
       <table style="margin: 0px" class="table table-striped">
         <thead>
           <tr>
