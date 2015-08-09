@@ -20,6 +20,8 @@
         <div class="panel-heading clearfix">
           <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Teacher</button>
           <h4><%= teacher.name %></h4>
+        </div>
+        <div class="panel-body">
           <% teacher.lessons.each do |lesson| %>
           <span><strong>Class:</strong> <%= Subject.get(lesson.subject_id).name %> ----- <strong>Block:</strong> <%= lesson.block %></span>
           <% end %>

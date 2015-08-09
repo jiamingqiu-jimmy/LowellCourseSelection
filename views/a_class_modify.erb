@@ -53,11 +53,11 @@
       <table style="margin: 0px" class="table table-striped">
         <thead>
           <tr>
-            <td class="col-sm-3">Name</td>
-            <td class="col-sm-2">Block</td>
-            <td class="col-sm-2">Space</td>
-            <td class="col-sm-4">Teacher</td>
-            <td class="col-sm-1"></td>
+            <th class="col-sm-3 text-center">Name</th>
+            <th class="col-sm-2 text-center">Block</th>
+            <th class="col-sm-2 text-center">Space</th>
+            <th class="col-sm-4 text-center">Teacher</th>
+            <th class="col-sm-1 text-center">Button</th>
           </tr>
         </thead>
       </table>
@@ -66,19 +66,19 @@
           <table style="margin: 0px" class="table table-striped">
             <tbody>
               <tr>
-                <td class="col-sm-3"><%= Subject.get(lesson.subject_id).name %></td>
-                <td class="col-sm-2"><%= lesson.block %></td>
-                <td class="col-sm-2"><%= lesson.space %></td>
-                <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>
-                <td class="col-sm-1">
+                <td class="col-sm-3 text-center"><%= Subject.get(lesson.subject_id).name %></td>
+                <td class="col-sm-2 text-center"><%= lesson.block %></td>
+                <td class="col-sm-2 text-center"><%= lesson.space %></td>
+                <td class="col-sm-4 text-center"><%= Teacher.get(lesson.teacher_id).name %></td>
+                <td class="col-sm-1 text-center">
                   <form method="POST" action="/admin/class-delete">
                     <input style="border:0" type="number" name="lesson_id" readOnly hidden value="<%=lesson.id%>">
-                    <button class="btn btn-danger btn-xs pull-right" type="submit">Delete</button>
+                    <button class="btn btn-danger btn-xs" type="submit">Delete</button>
                   </form>
                 </td>
               </tr>
             </tbody>
-          </table>s
+          </table>
         <% end %>
       <% end %>
     </div>
