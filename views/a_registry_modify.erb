@@ -16,6 +16,7 @@
   <form class="form-horizontal" method="POST" action="/admin/registry-delete">
     <div class="panel panel-info">
       <div class="panel-heading clearfix">
+        <input style="border:0" type="text" name="registry_id" readOnly hidden value="<%=registry.id%>">
         <button class="btn btn-danger btn-sm pull-right" type="submit">Delete Registry</button>
         <h4><%= registry.name %></h4>
       </div>

@@ -72,10 +72,10 @@ class Subject
   
   validates_uniqueness_of :name
   
-  has n, :lessons
+  has n, :lessons, constraint: :destroy
   belongs_to :category
   
-  has n, :user_subjects
+  has n, :user_subjects, constraint: :destroy
   has n, :users, through: :user_subjects
   
 end
@@ -96,7 +96,7 @@ class Lesson
   property :space,        Integer
   property :block,        Integer
   
-  has n, :user_lessons
+  has n, :user_lessons, constraint: :destroy
   has n, :users, through: :user_lessons
   
   belongs_to :subject
@@ -127,7 +127,7 @@ class Registry
   property :id,           Serial
   property :name,         Integer
 
-  has n, :users
+  has n, :users, constraint: :destroy
 end
 
 DataMapper.finalize()

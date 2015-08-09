@@ -63,7 +63,6 @@
       </table>
       <% category.subjects.each do |subject| %>
         <% subject.lessons.each do |lesson| %>
-        <form>
           <table style="margin: 0px" class="table table-striped">
             <tbody>
               <tr>
@@ -71,11 +70,15 @@
                 <td class="col-sm-2"><%= lesson.block %></td>
                 <td class="col-sm-2"><%= lesson.space %></td>
                 <td class="col-sm-4"><%= Teacher.get(lesson.teacher_id).name %></td>
-                <td class="col-sm-1"><button class="btn btn-danger btn-xs pull-right">Delete</button></td>
+                <td class="col-sm-1">
+                  <form method="POST" action="/admin/class-delete">
+                    <input style="border:0" type="number" name="lesson_id" readOnly hidden value="<%=lesson.id%>">
+                    <button class="btn btn-danger btn-xs pull-right" type="submit">Delete</button>
+                  </form>
+                </td>
               </tr>
             </tbody>
-          </table>
-        </form>
+          </table>s
         <% end %>
       <% end %>
     </div>

@@ -1,5 +1,6 @@
 require "sinatra"
 require "data_mapper"
+require "json"
 require "./environment"
 require "./seed"
 helpers do
@@ -249,7 +250,9 @@ post("/admin/category-add")do
 end
 
 post("/admin/category-delete")do
-  category = Category.get(params["category_id"])
+  category_id = params["category_id"]
+  puts category_id
+  category = Category.get(category_id)
   category.destroy
   
   if category.destroyed?
@@ -277,6 +280,22 @@ post("/admin/subject-add")do
   else
 		erb(:error)
   end
+end
+
+post("/admin/subject-delete") do
+    subject_id = params["subject_id"]
+    subject = Subject.get(subject_id)
+    subject.destroy
+    
+    if subject.destroyed?
+      redirect("/admin/modify-subject")
+    else
+      subject.errors.each do |error|
+        p "#############"
+        p error
+      end
+      erb(:error)
+    end
 end
 
 post("/admin/teacher-add")do
@@ -335,8 +354,9 @@ post("/admin/class-add")do
   end
 end
 
-post("/admin/class-delete/:lesson_id")do
-  lesson = Lesson.get(params["lesson_id"])
+post("/admin/class-delete")do
+  lesson_id = params["lesson_id"]
+  lesson = Lesson.get(lesson_id)
   lesson.destroy
   
   if lesson.destroyed?
@@ -360,7 +380,7 @@ post("/admin/registry-add")do
   end
 end
 
-post("/admin/registry-delete/:registry_id")do
+post("/admin/registry-delete")do
   registry = Registry.get(params["registry_id"])
   registry.destroy
   
