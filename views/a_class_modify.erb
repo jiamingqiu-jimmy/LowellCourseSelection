@@ -60,24 +60,24 @@
             <th class="col-sm-1 text-center">Button</th>
           </tr>
         </thead>
-      <% category.subjects.each do |subject| %>
-        <% subject.lessons.each do |lesson| %>
         <tbody>
-          <tr>
-            <td class="col-sm-3 text-center"><%= Subject.get(lesson.subject_id).name %></td>
-            <td class="col-sm-2 text-center"><%= lesson.block %></td>
-            <td class="col-sm-2 text-center"><%= lesson.space %></td>
-            <td class="col-sm-4 text-center"><%= Teacher.get(lesson.teacher_id).name %></td>
-            <td class="col-sm-1 text-center">
-              <form method="POST" action="/admin/class-delete">
-                <input style="border:0" type="number" name="lesson_id" readOnly hidden value="<%=lesson.id%>">
-                <button class="btn btn-danger btn-xs" type="submit">Delete</button>
-              </form>
-            </td>
-          </tr>
-        </tbody>
+        <% category.subjects.each do |subject| %>
+          <% subject.lessons.each do |lesson| %>
+            <tr>
+              <td class="col-sm-3 text-center"><%= Subject.get(lesson.subject_id).name %></td>
+              <td class="col-sm-2 text-center"><%= lesson.block %></td>
+              <td class="col-sm-2 text-center"><%= lesson.space %></td>
+              <td class="col-sm-4 text-center"><%= Teacher.get(lesson.teacher_id).name %></td>
+              <td class="col-sm-1 text-center">
+                <form method="POST" action="/admin/class-delete">
+                  <input style="border:0" type="number" name="lesson_id" readOnly hidden value="<%=lesson.id%>">
+                  <button class="btn btn-danger btn-xs" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
+        </tbody>
       </table>
     </div>
   </div>
