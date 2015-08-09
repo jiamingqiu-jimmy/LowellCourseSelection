@@ -26,19 +26,32 @@
     <h4><small style="margin-left: 20px; color: rgb(255, 92, 51)">Beware: Deleting a Class Name deletes all classes under it</small></h4>
     
     <% subjects.each do |subject| %>
-    <form class="form-horizontal" method="POST" action="/admin/subject-delete">
       <div class="panel panel-info">
         <div class="panel-heading clearfix">
-          <input style="border:0" type="text" name="subject_id" readOnly hidden value="<%=subject.id%>">
-          <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Class Name</button>
-          <h4><%= subject.name %></h4>
+          <form class="form-horizontal" method="POST" action="/admin/subject-delete">
+            <input style="border:0" type="text" name="subject_id" readOnly hidden value="<%=subject.id%>">
+            <button class="btn btn-danger btn-sm pull-right" type="submit">Delete this Class Name</button>
+            <h4><%= subject.name %></h4>
+          </form>
         </div>
         <div class="panel-body">
-          <% subject.lessons.each do |lesson| %>
-          <span><strong>Block:</strong> <%= lesson.block %> ----- <strong>Teacher:</strong> <%= Teacher.get(lesson.teacher_id).name %></span> <br>
-          <% end %>          
+          <table style="margin: 0px" class="table table-striped">
+            <thead>
+              <tr>
+                <th class="col-sm-3 text-center">Block</th>
+                <th class="col-sm-9 text-center">Teacher</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% subject.lessons.each do |lesson| %>
+              <tr>
+                <td class="col-sm-3 text-center"> <%= lesson.block %> </td>
+                <td class="col-sm-9 text-center"> <%= Teacher.get(lesson.teacher_id).name %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
-    </form>
     <% end %>
 </article>
