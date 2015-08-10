@@ -34,8 +34,8 @@ class User
   # validates_presence_of :email, :if => lambda { |t| t.status == :new }
 
   property :admin,        Boolean, default: false
-	property :time_class,   DateTime
-	property :time_teacher, DateTime
+	property :class_time,   DateTime
+	property :teacher_time, DateTime
 	
 	def valid_password?(unhashed_password)
 	  self.password == unhashed_password
