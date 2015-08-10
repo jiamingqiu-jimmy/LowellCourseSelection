@@ -87,7 +87,7 @@ get("/class-view") do
   end
 end
 
-get("/class-select") do
+get("/class-select") do #Change it back to check Enum first before checking time
   if user_signed_in?
     if is_class_time?
       categories = Category.all(order: :name.asc)
