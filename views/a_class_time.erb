@@ -1,0 +1,33 @@
+<article>
+  <h2>Set Class Selection Time</h2>
+  
+  <form class="form-horizontal" role="form" method="POST" action="/admin/class-time">
+    <div class="form-group">
+      <label style="font-size: 120%; font-weight: bold" class="col-sm-2 checkbox-inline control-label" for="registry">Registry</label>
+      <div class="col-sm-10">
+        <% Registry.each do |registry| %>
+          <input type="checkbox" name="registry_id[]" id="registry" value="<%=registry.id%>"> <%= registry.name %>
+        <% end %>  
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="font-size: 120%" class="col-sm-2 control-label" for="date">Date</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="date" name="date">
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="font-size: 120%" class="col-sm-2 control-label" for="time-hour">Hour</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="number" name="hour" id="time-hour" min="0" max="24">
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="font-size: 120%" class="col-sm-2 control-label" for="time-minute">Minute</label>
+      <div class="col-sm-10">
+        <input class="form-control" type="number" name="minute" id="time-minute" min="0" max="59">
+      </div>
+    </div>
+    <button class="btn btn-success btn-md pull-right" type="submit">Submit</button>
+  </form>
+</article>
