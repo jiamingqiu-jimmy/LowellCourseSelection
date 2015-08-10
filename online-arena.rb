@@ -35,6 +35,38 @@ helpers do
     user = @current_user
     user.admin
   end
+  
+  def is_class_time?
+      utc_time = Time.parse(DateTime.now.to_s).utc
+      pacific_time = utc_time + Time.zone_offset("PDT")
+      
+      user = current_user
+      
+      user_time = Time.parse(user.class_time.to_s)
+      
+      pacific_time < user_time
+  end
+  
+  def is_teacher_time?
+      utc_time = Time.parse(DateTime.now.to_s).utc
+      pacific_time = utc_time + Time.zone_offset("PDT")
+
+      user = current_user
+      
+      user_time = Time.parse(user.teacher_time.to_s)
+      
+      pacific_time < user_time
+  end
+  
+  def is_enum_class?
+    user = @current_user
+    user.selection_status == :class_time?
+  end
+  
+  def is_enum_teacher?
+    user = @current_user
+    user.selection_status == :teacher_time?
+  end
 end
 
 set(:sessions, true)
@@ -57,12 +89,18 @@ end
 
 get("/class-select") do
   if user_signed_in?
-    categories = Category.all(order: :name.asc)
-    user = current_user
-    a = user.subjects
-    user_subjects = JSON.parse(a.to_json)
-    puts user_subjects
-    erb(:class_select, :locals => {:categories => categories, :user => user, :user_subjects => user_subjects})
+    if is_class_time?
+      categories = Category.all(order: :name.asc)
+      user = current_user
+      a = user.subjects
+      user_subjects = JSON.parse(a.to_json)
+      puts user_subjects
+      erb(:class_select, :locals => {:categories => categories, :user => user, :user_subjects => user_subjects})
+    else
+      if is_enum_class?
+        erb(:class_view, :locals => {})
+      end
+    end
   else
     redirect("/error/user")
   end
@@ -71,23 +109,14 @@ end
 
 get("/teacher-select")do
   if user_signed_in?
-    #--------------------Disabled until ready to launch(unless testing)---------------------#
-    #   utc_time = Time.parse(DateTime.now.to_s).utc
-    #   pacific_time = utc_time + Time.zone_offset("PDT")
-    #   puts utc_time
-    #   puts pacific_time
-      
-    #   user = current_user
-    #   puts user.time
-      
-    #   user_time = Time.parse(user.time.to_s)
-      
-    #   if pacific_time < user_time
-    user = current_user
-    erb(:teacher_select, :locals => {:user => user})
-    #   else
-    #     redirect("/class-view")
-    #   end
+    if is_class_time?
+      user = current_user
+      erb(:teacher_select, :locals => {:user => user})
+    else
+      if is_enum_teacher?
+        erb(:class_view, :locals => {})
+      end
+    end
   else
     redirect("/error/user")
   end
@@ -125,16 +154,16 @@ get("/admin") do
 end
 
 get("/admin/modify-registry") do
-  # if user_signed_in?
-  #   if is_user_admin?
+  if user_signed_in?
+    if is_user_admin?
       registry = Registry.all
       erb(:a_registry_modify, :locals =>{:registry => registry})
-    # else
-      # redirect("/error/admin")
-  #   end
-  # else
-    # redirect("/error/user")
-  # end
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
 end
 
 get("/admin/modify-category") do
