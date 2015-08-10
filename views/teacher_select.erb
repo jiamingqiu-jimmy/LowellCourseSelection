@@ -38,214 +38,214 @@
   
   <h4>Current Time: <span id="time" /></h4>
   
-  
-  <ul class="nav nav-tabs">
-    <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
-    <% user.subjects.each do |subject| %>
-    <li><a href='<%= "#".concat(subject.id.to_s) %>' data-toggle="tab"><%=subject.name %></a></li>
-    <% end %>
-  </ul>
-  
-  <div class="tab-content">
-    <div id="Home" class="tab-pane fade in active">
-      <form class="form-horizontal" method="POST" action="/teacher-select">
-        <div class="panel panel-info">
-          <div class="panel-heading clearfix">
-            <button class="btn btn-success btn-md pull-right" type="submit">Submit</button>
-            <h4 class="pull-left">Your Schedule</h4>
+  <div id="refresh">
+    <ul class="nav nav-tabs" id="NavTab">
+      <li class="active"><a href="#Home" data-toggle="tab">Home</a></li>
+      <% user.subjects.each do |subject| %>
+      <li><a href='<%= "#".concat(subject.id.to_s) %>' data-toggle="tab"><%=subject.name %></a></li>
+      <% end %>
+    </ul>
+    
+    <div class="tab-content">
+      <div id="Home" class="tab-pane fade in active">
+        <form class="form-horizontal" method="POST" action="/teacher-select">
+          <div class="panel panel-info">
+            <div class="panel-heading clearfix">
+              <button class="btn btn-success btn-md pull-right" type="submit">Submit</button>
+              <h4 class="pull-left">Your Schedule</h4>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="display: none" class="hidden-sm">
+                      ID
+                    </th>
+                    <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-1 text-center">
+                      Block
+                    </th>
+                    <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-5 text-center">
+                      Class
+                    </th>
+                    <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-3 text-center">
+                      Teacher
+                    </th>
+                    <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-3 text-center">
+                      Button
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id=input_tbody>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='1'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='2'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='3'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='4'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='5'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='6'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='7'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="display: none" class="hidden-sm">
+                      <input hidden name='lesson_id[]' value=''>
+                    </td>
+                    <td class="col-sm-1">
+                       <input  class="text-center form-control" type='text' readOnly value='8'>
+                    </td>
+                    <td class="col-sm-5">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-3">
+                      <input  class="text-center form-control" type='text' readOnly value=''>
+                    </td>
+                    <td class="col-sm-4">
+                      <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div class="panel-body">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th style="display: none" class="hidden-sm">
-                    ID
-                  </th>
-                  <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-1 text-center">
-                    Block
-                  </th>
-                  <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-5 text-center">
-                    Class
-                  </th>
-                  <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-3 text-center">
-                    Teacher
-                  </th>
-                  <th style="border-bottom: 1px solid #000; font-size: 16px;"class="col-sm-3 text-center">
-                    Button
-                  </th>
-                </tr>
-              </thead>
-              <tbody id=input_tbody>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='1'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='2'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='3'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='4'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='5'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='6'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='7'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="display: none" class="hidden-sm">
-                    <input hidden name='lesson_id[]' value=''>
-                  </td>
-                  <td class="col-sm-1">
-                     <input  class="text-center form-control" type='text' readOnly value='8'>
-                  </td>
-                  <td class="col-sm-5">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-3">
-                    <input  class="text-center form-control" type='text' readOnly value=''>
-                  </td>
-                  <td class="col-sm-4">
-                    <button id="remove-class" class="btn btn-danger btn-md center-block" type='button'>Remove Class</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      <% user.subjects(order: :name.asc).each do |subject| %>
+      <div id='<%= subject.id %>' class="tab-pane fade">
+        <table style="margin: 0px" class="table table-striped">
+          <thead>
+            <tr>
+              <th style="display: none" class="hidden-sm">ID</th>
+              <th class="col-sm-5 text-center">Teacher</th>
+              <th class="col-sm-2 text-center">Block</th>
+              <th class="col-sm-2 text-center">Space</th>
+              <th class="col-sm-3 text-center">Button</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% subject.lessons(order: :block.asc).each do |lesson| %>
+            <tr>
+              <td style="display: none" id="lesson_id" class="hidden-sm"><%= lesson.id %></td>
+              <td class="col-sm-5 text-center" id="teacher_name"><%= Teacher.get(lesson.teacher_id).name %></td>
+              <td class="col-sm-2 text-center"><%= lesson.block %></td>
+              <td class="col-sm-2 text-center" id='<%=lesson.id.to_s%>'><%= lesson.space %></td>
+              <td class="col-sm-3 text-center"><button id="add-class" class="btn btn-success btn-xs">Add Class</button></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <% end %>
     </div>
-    <% user.subjects(order: :name.asc).each do |subject| %>
-    <div id='<%= subject.id %>' class="tab-pane fade">
-      <table style="margin: 0px" class="table table-striped">
-        <thead>
-          <tr>
-            <th style="display: none" class="hidden-sm">ID</th>
-            <th class="col-sm-5 text-center">Teacher</th>
-            <th class="col-sm-2 text-center">Block</th>
-            <th class="col-sm-2 text-center">Space</th>
-            <th class="col-sm-3 text-center">Button</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% subject.lessons(order: :block.asc).each do|lesson| %>
-          <tr>
-            <td style="display: none" id="lesson_id" class="hidden-sm"><%= lesson.id %></td>
-            <td class="col-sm-5 text-center" id="teacher_name"><%= Teacher.get(lesson.teacher_id).name %></td>
-            <td class="col-sm-2 text-center"><%= lesson.block %></td>
-            <td class="col-sm-2 text-center" id="lesson_space"><%= lesson.space %></td>
-            <td class="col-sm-3 text-center"><button id="add-class" class="btn btn-success btn-xs">Add Class</button></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <% end %>
   </div>
-  
   <script type="text/javascript">
     $(document).ready(function(){
       $('.tab-content .table .col-sm-3 #add-class').on('click', function(){
@@ -304,13 +304,45 @@
         });
       });
       
-      var auto_refresh = setInterval(
-      function ()
-      {
-      $('#lesson_space').load('teacher-select #lesson_space', function() {
+      // $('#NavTab a').click(function (e) {
+      //     e.preventDefault();
+      //     $(this).tab('show');
+      // });
+  
+      // // store the currently selected tab in the hash value
+      // $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+      //     var id = $(e.target).attr("href").substr(1);
+      //     window.location.hash = id;
+      // });
+      // var hash = window.location.hash;
+      // $('#NavTab a[href="' + hash + '"]').tab('show');
+      if(location.hash) {
+          $('a[href=' + location.hash + ']').tab('show');
+      }
+      $(document.body).on("click", "a[data-toggle]", function(event) {
+          location.hash = this.getAttribute("href");
       });
-      },30000); // refresh every 10000 milliseconds
+      
+      setInterval( function () {
+        // var lesson_ids = []
+        // <% user.subjects.each do |subject| %>
+        //   <% subject.lessons.each do |lesson| %>
+        //     lesson_ids.push('<%= lesson.id.to_s %>')
+        //   <% end %>
+        // <% end %>
+        // lesson_ids.forEach(function(id) {
+          // var selector = "#" + id
+          // selector = "#refresh " + selector
+          // alert(selector);
+        $('#refresh').load('teacher-select #refresh');
+        // on load of the page: switch to the currently selected tab
+      // });
+      },5000); // refresh every 10000 milliseconds
       
     });
-  </script>
+    $(window).on('popstate', function() {
+        var anchor = location.hash || $("a[data-toggle=tab]").first().attr("href");
+        $('a[href=' + anchor + ']').tab('show');
+    });
+      </script>
 </article>
