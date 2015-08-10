@@ -22,7 +22,10 @@ DEFAULT_USERS = [
     password: "123456",
     password_confirmation: "123456",
     admin: true,
-    registry_id: "1"
+    registry_id: "1",
+    validation_status: :change,
+    class_time: DateTime.parse(Time.now.to_s),
+    teacher_time: DateTime.parse(Time.now.to_s)
   }
 ]
 
