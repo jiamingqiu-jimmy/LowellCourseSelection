@@ -189,21 +189,22 @@ get("/admin/modify-teacher") do
   end
 end
 
-get("/admin/set-class-select") do
+get("/admin/class-time") do
   if user_signed_in?
     if is_user_admin?
-      User.each do |user|
-        user.status = :change
-        puts "It worked"
-        if user.save
-          puts "saved"
-        else
-          user.errors.each do |error|
-            puts error
-          end
-        end
-      end
-      erb(:a_user_time, :locals => {})
+      erb(:a_class_time, :locals => {})
+    else
+      redirect("/error/admin")
+    end
+  else
+    redirect("/error/user")
+  end
+end
+
+get("/admin/teacher-time") do
+  if user_signed_in?
+    if is_user_admin?
+      erb(:a_teacher_time, :locals => {})
     else
       redirect("/error/admin")
     end
@@ -391,35 +392,53 @@ post("/admin/registry-delete")do
   end
 end
 
-post("/admin/set-time") do
-  p puts params["registry_id"]
-  puts params["date"]
-  puts params["hour"]
-  puts params["minute"]
-  
+post("/admin/class-time") do
   registry = params["registry_id"]
-  puts registry
   time = params["hour"]
   time.concat(":")
   time.concat(params["minute"])
-  puts time
 
   date = params["date"]
-  puts date
   
   datetime = date
   datetime.concat(" ")
   datetime.concat(time)
-  puts datetime
   
   access_time = Time.parse(datetime)
-  puts access_time
   
   registry.each do |registry_id|
-    puts registry_id
     Registry.get(registry_id).user.each do |user|
-      user.time = access_time
-      puts user.time
+      user.class_time = access_time
+      if user.save
+        redirect("/admin/set-user-time")
+      else
+        puts "something went horribly wrong"
+		    user.errors.each do |error|
+		    	p error
+	     	  erb(:error)
+        end
+      end
+    end
+  end
+end
+
+post("/admin/class-time") do
+  registry = params["registry_id"]
+  time = params["hour"]
+  time.concat(":")
+  time.concat(params["minute"])
+
+  date = params["date"]
+  
+  datetime = date
+  datetime.concat(" ")
+  datetime.concat(time)
+  
+  access_time = Time.parse(datetime)
+  
+  registry.each do |registry_id|
+    Registry.get(registry_id).user.each do |user|
+      user.teacher_time = access_time
       if user.save
         redirect("/admin/set-user-time")
       else
