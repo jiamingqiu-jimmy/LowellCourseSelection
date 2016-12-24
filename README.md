@@ -1,5 +1,5 @@
 # Online-Arena
-Lowell High School's new Online Arena
+Lowell High School's new course selection website
 
 ## Running The Application
 
